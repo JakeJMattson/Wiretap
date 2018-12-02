@@ -10,7 +10,10 @@ fun main(args: Array<String>) {
 
 private fun start(config: Configuration) = startBot(config.token) {
 
+	val base = "io.github.jakejmattson.wiretap."
+
 	configure {
 		prefix = config.prefix
+		commandPath = base + "commands"
 	}
 }
