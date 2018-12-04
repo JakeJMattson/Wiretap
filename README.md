@@ -16,3 +16,20 @@ Now, all you have to do is wait.
 If the user sends a message in any channel throughout the server, it will be logged in their private channel.
 Now your staff can quickly and easily review a user through a single channel without the extra work or hassle.
 </p>
+
+### Commands: 
+
+#### Listen
+
+| Command   | Arguments | Effect                                    |
+| ------    | ------    | ------                                    |
+| ListenTo  | User      | Begin listening to the target user.       |
+
+#### Utility
+
+| Command   | Arguments | Effect                                    |
+| ------    | ------    | ------                                    |
+| Author    | (none)    | Display the author of the bot.            |
+| Source    | (none)    | Display the source code via a GitLab link.|
+| Version   | (none)    | Display the current running version.      |
+| BotInfo   | (none)    | Display a summary or bot information.     |
