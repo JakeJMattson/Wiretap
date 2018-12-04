@@ -3,7 +3,9 @@ package io.github.jakejmattson.wiretap.services
 import com.google.gson.GsonBuilder
 import java.io.File
 
-data class Configuration(val token: String = "insert-token-here", val prefix: String = "?")
+data class Configuration(val token: String = "insert-token-here",
+						 val prefix: String = "?",
+						 val watchCategory: String = "insert-id-here")
 
 private val gson = GsonBuilder().setPrettyPrinting().create()
 private val configDir = File("config/")

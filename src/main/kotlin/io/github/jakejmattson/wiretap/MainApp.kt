@@ -10,10 +10,15 @@ fun main(args: Array<String>) {
 
 private fun start(config: Configuration) = startBot(config.token) {
 
-	val base = "io.github.jakejmattson.wiretap."
+	val watchlist = ArrayList<Watched>()
+	val category = jda.getCategoryById(config.watchCategory)
 
+	registerInjectionObject(watchlist, category)
+
+	val base = "io.github.jakejmattson.wiretap."
 	configure {
 		prefix = config.prefix
 		commandPath = base + "commands"
+		listenerPath = base + "listeners"
 	}
 }
