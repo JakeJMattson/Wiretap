@@ -1,6 +1,6 @@
 package io.github.jakejmattson.wiretap.commands
 
-import io.github.jakejmattson.wiretap.services.Watched
+import io.github.jakejmattson.wiretap.services.WatchedUsers
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
 import me.aberrantfox.kjdautils.internal.command.arguments.UserArg
@@ -8,13 +8,12 @@ import net.dv8tion.jda.core.entities.*
 import java.awt.Color
 
 @CommandSet("listen")
-fun listenCommands(watchlist: ArrayList<Watched>, category: Category) = commands {
+fun listenCommands(watchlist: WatchedUsers, category: Category) = commands {
 
 	command("ListenTo") {
 		description = "Listen to a target user."
 		expect(UserArg)
 		execute {
-
 			val user = it.args.component1() as User
 
 			if (user.isBot) {
@@ -23,8 +22,7 @@ fun listenCommands(watchlist: ArrayList<Watched>, category: Category) = commands
 			}
 
 			category.createTextChannel(user.name).queue { channel ->
-
-				watchlist.add(Watched(user, channel as TextChannel))
+				watchlist.add(user, channel as TextChannel)
 
 				it.respond(embed {
 					field {
