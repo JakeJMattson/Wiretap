@@ -1,5 +1,6 @@
 package io.github.jakejmattson.wiretap
 
+import io.github.jakejmattson.wiretap.listeners.rolePrecondition
 import io.github.jakejmattson.wiretap.services.*
 import me.aberrantfox.kjdautils.api.startBot
 
@@ -21,4 +22,6 @@ private fun start(config: Configuration) = startBot(config.token) {
 		commandPath = base + "commands"
 		listenerPath = base + "listeners"
 	}
+
+	registerCommandPreconditions(rolePrecondition(config))
 }
