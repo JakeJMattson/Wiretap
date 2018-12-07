@@ -33,3 +33,6 @@ Now your staff can quickly and easily review a user through a single channel wit
 | Source    | (none)    | Display the source code via a GitLab link.|
 | Version   | (none)    | Display the current running version.      |
 | BotInfo   | (none)    | Display a summary or bot information.     |
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
