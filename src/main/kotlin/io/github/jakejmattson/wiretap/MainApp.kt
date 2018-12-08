@@ -11,10 +11,10 @@ fun main(args: Array<String>) {
 
 private fun start(config: Configuration) = startBot(config.token) {
 
-	val watchlist = WatchedUsers()
+	val watchService = WatchService()
 	val category = jda.getCategoryById(config.watchCategory)
 
-	registerInjectionObject(watchlist, category)
+	registerInjectionObject(watchService, category)
 
 	val base = "io.github.jakejmattson.wiretap."
 	configure {
