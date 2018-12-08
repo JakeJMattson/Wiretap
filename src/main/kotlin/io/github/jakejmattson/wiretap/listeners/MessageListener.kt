@@ -12,15 +12,26 @@ class MessageListener(private val watchService: WatchService) {
 		if (event.author.isBot)
 			return
 
-		val watched = watchService.isUserWatched(event.author) ?: return
+		val user = watchService.isUserWatched(event.author)
+		val hasWord = watchService.hasWatchedWord(event.message.contentRaw)
 		val channel = event.message.channel as TextChannel
 
-		watched.channel.sendMessage(embed {
-			field {
-				name = "New message ${channel.name}"
-				value = "${channel.asMention}\n ${event.message.contentRaw}"
-				inline = false
-			}
-		}).queue()
+		if (user != null)
+			user.channel.sendMessage(embed {
+				field {
+					name = "New message in ${channel.name} from watched user."
+					value = "${channel.asMention}\n ${event.message.contentRaw}"
+					inline = false
+				}
+			}).queue()
+
+		if (hasWord)
+			watchService.wordLog.sendMessage(embed {
+				field {
+					name = "New message in ${channel.name} containing watched word."
+					value = "${channel.asMention}\n ${event.message.contentRaw}"
+					inline = false
+				}
+			}).queue()
 	}
 }

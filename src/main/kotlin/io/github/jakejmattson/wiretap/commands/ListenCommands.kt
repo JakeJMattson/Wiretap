@@ -3,7 +3,7 @@ package io.github.jakejmattson.wiretap.commands
 import io.github.jakejmattson.wiretap.services.WatchService
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
-import me.aberrantfox.kjdautils.internal.command.arguments.UserArg
+import me.aberrantfox.kjdautils.internal.command.arguments.*
 import net.dv8tion.jda.core.entities.*
 import java.awt.Color
 
@@ -33,6 +33,24 @@ fun listenCommands(watchService: WatchService, category: Category) = commands {
 					setColor(Color.green)
 				})
 			}
+		}
+	}
+
+	command("ListenFor") {
+		description = "Listen for a target word."
+		expect(SentenceArg)
+		execute {
+			val word = it.args.component1() as String
+			watchService.add(word)
+
+			it.respond(embed {
+				field {
+					name = "Listening for word!"
+					value = "Now listening for all messages containing \"$word\""
+					inline = false
+				}
+				setColor(Color.green)
+			})
 		}
 	}
 }

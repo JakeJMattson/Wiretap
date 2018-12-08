@@ -6,6 +6,7 @@ import java.io.File
 data class Configuration(val token: String = "insert-token-here",
 						 val prefix: String = "?",
 						 val watchCategory: String = "insert-id-here",
+						 val wordLogChannel: String = "insert-id-here",
 						 val requiredRoleName: String = "Staff")
 
 private val gson = GsonBuilder().setPrettyPrinting().create()

@@ -4,11 +4,13 @@ import net.dv8tion.jda.core.entities.*
 
 data class WatchedUser(val user: User, val channel: TextChannel)
 
-class WatchService {
+class WatchService(val wordLog: TextChannel) {
+	private val userList: ArrayList<WatchedUser> = ArrayList<WatchedUser>()
+	private val wordList = ArrayList<String>()
 
-	private val watchlist: ArrayList<WatchedUser> = ArrayList<WatchedUser>()
+	fun add(user: User, channel: TextChannel) = userList.add(WatchedUser(user, channel))
+	fun add(word: String) = wordList.add(word)
 
-	fun add(user: User, channel: TextChannel) = watchlist.add(WatchedUser(user, channel))
-
-	fun isUserWatched(user: User) =  watchlist.firstOrNull { user == it.user }
+	fun isUserWatched(user: User) =  userList.firstOrNull { user == it.user }
+	fun hasWatchedWord(content: String) = wordList.any { content.contains(it) }
 }
