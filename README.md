@@ -4,9 +4,7 @@
   </a>
 </p>
 
-# Wiretap - The friendly eavesdropping bot.
-
-### What is Wiretap?
+# Wiretap
 <p align="justify">
 Wiretap provides a way for the staff of a Discord server to monitor a target user's server activity from a singe channel.
 It was made for large servers, but can be used at any scale.
