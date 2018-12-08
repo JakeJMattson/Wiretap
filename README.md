@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="LICENSE.md">
+    <img src="https://img.shields.io/github/license/JakeJMattson/Wiretap.svg" alt="license">
+  </a>
+</p>
+
 # Wiretap - The friendly eavesdropping bot.
 
 ### What is Wiretap?
