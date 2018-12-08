@@ -5,6 +5,7 @@ import io.github.jakejmattson.wiretap.services.WatchService
 import me.aberrantfox.kjdautils.api.dsl.embed
 import net.dv8tion.jda.core.entities.TextChannel
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
+import java.awt.Color
 
 class MessageListener(private val watchService: WatchService) {
 	@Subscribe
@@ -23,6 +24,15 @@ class MessageListener(private val watchService: WatchService) {
 					value = "${channel.asMention}\n ${event.message.contentRaw}"
 					inline = false
 				}
+
+				if (hasWord) {
+					field {
+						name = "Double alert warning!"
+						value = "This message also contains a watched word."
+						inline = false
+					}
+					setColor(Color.RED)
+				}
 			}).queue()
 
 		if (hasWord)
@@ -31,6 +41,15 @@ class MessageListener(private val watchService: WatchService) {
 					name = "New message in ${channel.name} containing watched word."
 					value = "${channel.asMention}\n ${event.message.contentRaw}"
 					inline = false
+				}
+
+				if (user != null) {
+					field {
+						name = "Double alert warning!"
+						value = "The author of this message is also watched (${user.channel.asMention})."
+						inline = false
+					}
+					setColor(Color.RED)
 				}
 			}).queue()
 	}
