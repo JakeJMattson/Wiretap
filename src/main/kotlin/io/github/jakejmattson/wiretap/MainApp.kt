@@ -11,8 +11,7 @@ fun main(args: Array<String>) {
 
 private fun start(config: Configuration) = startBot(config.token) {
 
-	val wordLog = jda.getTextChannelById(config.wordLogChannel)
-	val watchService = WatchService(wordLog)
+	val watchService = WatchService(jda, config)
 	val category = jda.getCategoryById(config.watchCategory)
 
 	registerInjectionObject(watchService, category)
