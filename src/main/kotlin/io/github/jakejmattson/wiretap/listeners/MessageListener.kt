@@ -26,11 +26,7 @@ class MessageListener(private val watchService: WatchService) {
 				}
 
 				if (hasWord) {
-					field {
-						name = "Double alert warning!"
-						value = "This message also contains a watched word."
-						inline = false
-					}
+					addField("Double alert warning!", "This message also contains a watched word.", false)
 					setColor(Color.RED)
 				}
 			}).queue()

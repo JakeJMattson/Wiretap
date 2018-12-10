@@ -34,29 +34,16 @@ fun utilityCommands() = commands {
 	}
 
 	command("BotInfo") {
-		description = "Display the bot information."
+		description = "Display various bot information."
 		execute {
 			it.respond(embed {
 				title(it.jda.selfUser.fullName())
-				description("A Discord eavesdropping bot.")
+				description("The friendly eavesdropping bot.")
 				setColor(Color.green)
 				setThumbnail(it.jda.selfUser.effectiveAvatarUrl)
-
-				field {
-					name = "Creator"
-					value = Project.author
-					inline = false
-				}
-				field {
-					name = "Source"
-					value = Project.repository
-					inline = false
-				}
-				field {
-					name = "Version"
-					value = Project.version
-					inline = false
-				}
+				addField("Creator", Project.author, false)
+				addField("Source", Project.repository, false)
+				addField("Version", Project.version, false)
 			})
 		}
 	}

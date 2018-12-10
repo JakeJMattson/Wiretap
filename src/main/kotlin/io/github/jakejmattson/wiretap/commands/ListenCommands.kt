@@ -45,11 +45,7 @@ fun listenCommands(watchService: WatchService, category: Category) = commands {
 			watchService.add(word)
 
 			it.respond(embed {
-				field {
-					name = "Listening for word!"
-					value = "Now listening for all messages containing \"$word\""
-					inline = false
-				}
+				addField("Listening for word!", "Now listening for all messages containing \"$word\"", false)
 				setColor(Color.green)
 			})
 		}
@@ -75,19 +71,11 @@ fun listenCommands(watchService: WatchService, category: Category) = commands {
 
 			it.respond(embed {
 				if (result) {
-					field {
-						name = "Success!"
-						value = "Successfully removed $display from the watchlist"
-						inline = false
-					}
+					addField("Success!", "Successfully removed $display from the watchlist", false)
 					setColor(Color.green)
 				}
 				else {
-					field {
-						name = "Failure!"
-						value = "Failed to remove $display from the watchlist"
-						inline = false
-					}
+					addField("Failure!", "Failed to remove $display from the watchlist", false)
 					setColor(Color.red)
 				}}
 			)

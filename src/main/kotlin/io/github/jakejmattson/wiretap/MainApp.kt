@@ -16,11 +16,11 @@ private fun start(config: Configuration) = startBot(config.token) {
 
 	registerInjectionObject(watchService, category)
 
-	val base = "io.github.jakejmattson.wiretap."
+	val root = "io.github.jakejmattson.wiretap."
 	configure {
 		prefix = config.prefix
-		commandPath = base + "commands"
-		listenerPath = base + "listeners"
+		commandPath = "${root}commands"
+		listenerPath = "${root}listeners"
 	}
 
 	registerCommandPreconditions(rolePrecondition(config))

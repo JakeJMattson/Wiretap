@@ -5,7 +5,7 @@ import net.dv8tion.jda.core.entities.*
 
 data class WatchedUser(val user: User, val channel: TextChannel)
 
-class WatchService(val jda: JDA, val config: Configuration) {
+class WatchService(val jda: JDA, config: Configuration) {
 	private val userList: ArrayList<WatchedUser> = ArrayList<WatchedUser>()
 	private val wordList = ArrayList<String>()
 	val wordLog = jda.getTextChannelById(config.wordLogChannel)
