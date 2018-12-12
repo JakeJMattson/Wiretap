@@ -4,13 +4,21 @@ import com.google.gson.Gson
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
 import java.awt.Color
+import java.util.*
 
 private data class Properties(val version: String, val author: String, val repository: String)
 private val propFile = Properties::class.java.getResource("/properties.json").readText()
 private val Project = Gson().fromJson(propFile, Properties::class.java)
+private val startTime = Date()
 
 @CommandSet("utility")
 fun utilityCommands() = commands {
+	command("Ping") {
+		description = "Check the status of the bot."
+		execute {
+			it.respond("pong! (${it.jda.ping}ms)")
+		}
+	}
 
 	command("Author") {
 		description = "Display project author."
@@ -44,6 +52,28 @@ fun utilityCommands() = commands {
 				addField("Creator", Project.author, false)
 				addField("Source", Project.repository, false)
 				addField("Version", Project.version, false)
+			})
+		}
+	}
+
+	command("Uptime") {
+		description = "Displays how long the bot has been running."
+		execute {
+			val milliseconds = Date().time - startTime.time
+			val seconds = (milliseconds / 1000) % 60
+			val minutes = (milliseconds / (1000 * 60)) % 60
+			val hours = (milliseconds / (1000 * 60 * 60)) % 24
+			val days = (milliseconds / (1000 * 60 * 60 * 24))
+
+			it.respond(embed {
+				setColor(Color.WHITE)
+				setTitle("I have been running since")
+				setDescription(startTime.toString())
+
+				field {
+					name = "That's been"
+					value = "$days day(s), $hours hour(s), $minutes minute(s) and $seconds second(s)"
+				}
 			})
 		}
 	}
