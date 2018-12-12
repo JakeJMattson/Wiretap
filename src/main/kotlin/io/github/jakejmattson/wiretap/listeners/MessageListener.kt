@@ -13,7 +13,7 @@ class MessageListener(private val watchService: WatchService) {
 		if (event.author.isBot)
 			return
 
-		val user = watchService.isUserWatched(event.author)
+		val user = watchService.getWatched(event.author)
 		val hasWord = watchService.hasWatchedWord(event.message.contentRaw)
 		val channel = event.message.channel as TextChannel
 

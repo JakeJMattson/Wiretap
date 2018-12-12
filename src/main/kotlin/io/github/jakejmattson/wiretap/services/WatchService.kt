@@ -13,9 +13,11 @@ class WatchService(val jda: JDA, config: Configuration) {
 	fun add(user: User, channel: TextChannel) = userList.add(WatchedUser(user, channel))
 	fun add(word: String) = wordList.add(word)
 
+	fun remove(watchedUser: WatchedUser) = userList.remove(watchedUser)
 	fun remove(user: User) = userList.remove(userList.firstOrNull { it.user == user })
 	fun remove(word: String) = wordList.remove(word)
 
-	fun isUserWatched(user: User) =  userList.firstOrNull { user == it.user }
+	fun getWatched(user: User) =  userList.firstOrNull { user == it.user }
+	fun getWatched(channel: TextChannel) = userList.firstOrNull { channel == it.channel }
 	fun hasWatchedWord(content: String) = wordList.any { content.contains(it) }
 }
