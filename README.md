@@ -15,7 +15,7 @@
 
 # Wiretap
 <p align="justify">
-Wiretap provides a way for the staff of a Discord server to monitor a target user's server activity from a singe channel.
+Wiretap provides a way for the staff of a Discord server to monitor a target user's server activity from a single channel.
 It was made for large servers, but can be used at any scale.
 Consider the following: A user joins your server and says something concerning or perhaps breaks server rules.
 How do you make sure they stay in line? Do you set a reminder to check their history every few minutes? 
@@ -48,6 +48,8 @@ Now your staff can quickly and easily review a user through a single channel wit
 | Source    | (none)    | Display the source code via a GitLab link.|
 | Version   | (none)    | Display the current running version.      |
 | BotInfo   | (none)    | Display a summary or bot information.     |
+| Ping      | (none)    | Display the network ping of the bot.      |
+| Uptime    | (none)    | Display how long the bot has been running.|
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
