@@ -31,7 +31,7 @@ fun listenCommands(watchService: WatchService, category: Category) = commands {
 						value = "Now listening to all messages from ${user.fullName()} (${user.asMention})"
 						inline = false
 					}
-					setColor(Color.green)
+					color(Color.green)
 				})
 			}
 		}
@@ -46,7 +46,7 @@ fun listenCommands(watchService: WatchService, category: Category) = commands {
 
 			it.respond(embed {
 				addField("Listening for word!", "Now listening for all messages containing \"$word\"", false)
-				setColor(Color.green)
+				color(Color.green)
 			})
 		}
 	}
@@ -72,11 +72,11 @@ fun listenCommands(watchService: WatchService, category: Category) = commands {
 			it.respond(embed {
 				if (result) {
 					addField("Success!", "Successfully removed $display from the watchlist", false)
-					setColor(Color.green)
+					color(Color.green)
 				}
 				else {
 					addField("Failure!", "Failed to remove $display from the watchlist", false)
-					setColor(Color.red)
+					color(Color.red)
 				}}
 			)
 		}

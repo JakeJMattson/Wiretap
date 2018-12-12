@@ -27,7 +27,7 @@ class MessageListener(private val watchService: WatchService) {
 
 				if (hasWord) {
 					addField("Double alert warning!", "This message also contains a watched word.", false)
-					setColor(Color.RED)
+					color(Color.RED)
 				}
 			}).queue()
 
@@ -45,7 +45,7 @@ class MessageListener(private val watchService: WatchService) {
 						value = "The author of this message is also watched (${user.channel.asMention})."
 						inline = false
 					}
-					setColor(Color.RED)
+					color(Color.RED)
 				}
 			}).queue()
 	}

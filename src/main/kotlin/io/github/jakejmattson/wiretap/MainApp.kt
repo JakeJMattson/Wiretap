@@ -13,7 +13,6 @@ private fun start(config: Configuration) = startBot(config.token) {
 
 	val watchService = WatchService(jda, config)
 	val category = jda.getCategoryById(config.watchCategory)
-
 	registerInjectionObject(watchService, category)
 
 	val root = "io.github.jakejmattson.wiretap."

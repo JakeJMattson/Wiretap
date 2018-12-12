@@ -47,7 +47,7 @@ fun utilityCommands() = commands {
 			it.respond(embed {
 				title(it.jda.selfUser.fullName())
 				description("The friendly eavesdropping bot.")
-				setColor(Color.green)
+				color(Color.green)
 				setThumbnail(it.jda.selfUser.effectiveAvatarUrl)
 				addField("Creator", Project.author, false)
 				addField("Source", Project.repository, false)
@@ -66,9 +66,9 @@ fun utilityCommands() = commands {
 			val days = (milliseconds / (1000 * 60 * 60 * 24))
 
 			it.respond(embed {
-				setColor(Color.WHITE)
-				setTitle("I have been running since")
-				setDescription(startTime.toString())
+				title("I have been running since")
+				description(startTime.toString())
+				color(Color.WHITE)
 
 				field {
 					name = "That's been"
