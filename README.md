@@ -38,7 +38,8 @@ Now your staff can quickly and easily review a user through a single channel wit
 | ------    | ------    | ------                                        |
 | ListenTo  | User      | Begin listening to the target user.           |
 | ListenFor | Sentence  | Begin listening for the target word or phrase.|
-| Ignore    | Sentence  | Stop listening to argument passed.            |
+| IgnoreUser| User      | Ignore previously listened user.              |
+| IgnoreWord| Sentence  | Ignore previously listened word.              |
 
 #### Utility
 
