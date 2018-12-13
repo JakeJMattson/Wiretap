@@ -3,7 +3,6 @@ package io.github.jakejmattson.wiretap.commands
 import io.github.jakejmattson.wiretap.services.WatchService
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
-import me.aberrantfox.kjdautils.extensions.stdlib.isLong
 import me.aberrantfox.kjdautils.internal.command.arguments.*
 import net.dv8tion.jda.core.entities.*
 import java.awt.Color
@@ -51,34 +50,47 @@ fun listenCommands(watchService: WatchService, category: Category) = commands {
 		}
 	}
 
-	command("Ignore") {
-		description = "Ignore previously listened target."
+	command("IgnoreUser") {
+		description = "Ignore previously listened user."
+		expect(UserArg)
+		execute {
+			val user = it.args.component1() as User
+			val name = user.fullName()
+			val wasRemoved = watchService.remove(user)
+
+			it.respond(if (wasRemoved) createSuccessEmbed(name) else createFailureEmbed(name))
+		}
+	}
+
+	command("IgnoreWord") {
+		description = "Ignore previously listened word."
 		expect(SentenceArg)
 		execute {
-			val arg = it.args.component1() as String
-			val display: String
+			val word = it.args.component1() as String
+			val display = "\"$word\""
+			val wasRemoved = watchService.remove(word)
 
-			val result =
-				if (arg.isLong()) {
-					val user = watchService.jda.getUserById(arg.toLong())
-					display = user.fullName()
-					watchService.remove(user)
-				}
-				else {
-					display = "\"$arg\""
-					watchService.remove(arg)
-				}
-
-			it.respond(embed {
-				if (result) {
-					addField("Success!", "Successfully removed $display from the watchlist", false)
-					color(Color.green)
-				}
-				else {
-					addField("Failure!", "Failed to remove $display from the watchlist", false)
-					color(Color.red)
-				}}
-			)
+			it.respond(if (wasRemoved) createSuccessEmbed(display) else createFailureEmbed(display))
 		}
 	}
 }
+
+fun createSuccessEmbed(target: String) =
+	embed {
+		field {
+			name = "Success!"
+			value = "Successfully removed $target from the watchlist"
+			inline = false
+		}
+		color(Color.green)
+	}
+
+fun createFailureEmbed(target: String) =
+	embed {
+		field {
+			name = "Failure!"
+			value = "Failed to remove $target from the watchlist"
+			inline = false
+		}
+		color(Color.red)
+	}
