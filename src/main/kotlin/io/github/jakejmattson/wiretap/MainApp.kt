@@ -4,6 +4,8 @@ import io.github.jakejmattson.wiretap.listeners.rolePrecondition
 import io.github.jakejmattson.wiretap.services.*
 import me.aberrantfox.kjdautils.api.startBot
 
+const val root = "io.github.jakejmattson.wiretap."
+
 fun main(args: Array<String>) {
 	val config = loadConfiguration() ?: return
 	start(config)
@@ -12,10 +14,8 @@ fun main(args: Array<String>) {
 private fun start(config: Configuration) = startBot(config.token) {
 
 	val watchService = WatchService(jda, config)
-	val category = jda.getCategoryById(config.watchCategory)
-	registerInjectionObject(watchService, category)
+	registerInjectionObject(watchService)
 
-	val root = "io.github.jakejmattson.wiretap."
 	configure {
 		prefix = config.prefix
 		commandPath = "${root}commands"

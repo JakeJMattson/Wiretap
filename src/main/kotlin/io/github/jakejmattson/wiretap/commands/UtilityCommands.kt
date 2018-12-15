@@ -13,13 +13,6 @@ private val startTime = Date()
 
 @CommandSet("utility")
 fun utilityCommands() = commands {
-	command("Ping") {
-		description = "Check the status of the bot."
-		execute {
-			it.respond("pong! (${it.jda.ping}ms)")
-		}
-	}
-
 	command("Author") {
 		description = "Display project author."
 		execute {
@@ -28,14 +21,14 @@ fun utilityCommands() = commands {
 	}
 
 	command("Source") {
-		description = "Display the repository link."
+		description = "Display repository link."
 		execute {
 			it.respond("**Project Repository**: ${Project.repository}")
 		}
 	}
 
 	command("Version") {
-		description = "Display the bot version."
+		description = "Display bot version."
 		execute {
 			it.respond("**Running Version**: ${Project.version}")
 		}
@@ -49,15 +42,22 @@ fun utilityCommands() = commands {
 				description("The friendly eavesdropping bot.")
 				color(Color.green)
 				setThumbnail(it.jda.selfUser.effectiveAvatarUrl)
-				addField("Creator", Project.author, false)
+				addField("Author", Project.author, false)
 				addField("Source", Project.repository, false)
 				addField("Version", Project.version, false)
 			})
 		}
 	}
 
+	command("Ping") {
+		description = "Display network status."
+		execute {
+			it.respond("**Pinged in**: ${it.jda.ping}ms")
+		}
+	}
+
 	command("Uptime") {
-		description = "Displays how long the bot has been running."
+		description = "Display how long the bot has been running."
 		execute {
 			val milliseconds = Date().time - startTime.time
 			val seconds = (milliseconds / 1000) % 60

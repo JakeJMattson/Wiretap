@@ -4,11 +4,11 @@ import io.github.jakejmattson.wiretap.services.WatchService
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
 import me.aberrantfox.kjdautils.internal.command.arguments.*
-import net.dv8tion.jda.core.entities.*
+import net.dv8tion.jda.core.entities.User
 import java.awt.Color
 
 @CommandSet("listen")
-fun listenCommands(watchService: WatchService, category: Category) = commands {
+fun listenCommands(watchService: WatchService) = commands {
 
 	command("ListenTo") {
 		description = "Listen to a target user."
@@ -21,18 +21,16 @@ fun listenCommands(watchService: WatchService, category: Category) = commands {
 				return@execute
 			}
 
-			category.createTextChannel(user.name).queue { channel ->
-				watchService.add(user, channel as TextChannel)
+			watchService.watchUser(user)
 
-				it.respond(embed {
-					field {
-						name = "Listening to user!"
-						value = "Now listening to all messages from ${user.fullName()} (${user.asMention})"
-						inline = false
-					}
-					color(Color.green)
-				})
-			}
+			it.respond(embed {
+				field {
+					name = "Listening to user!"
+					value = "Now listening to all messages from ${user.fullName()} (${user.asMention})"
+					inline = false
+				}
+				color(Color.green)
+			})
 		}
 	}
 
@@ -41,7 +39,7 @@ fun listenCommands(watchService: WatchService, category: Category) = commands {
 		expect(SentenceArg)
 		execute {
 			val word = it.args.component1() as String
-			watchService.add(word)
+			watchService.watchWord(word)
 
 			it.respond(embed {
 				addField("Listening for word!", "Now listening for all messages containing \"$word\"", false)

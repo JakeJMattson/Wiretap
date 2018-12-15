@@ -32,7 +32,7 @@ class MessageListener(private val watchService: WatchService) {
 			}).queue()
 
 		if (hasWord)
-			watchService.wordLog.sendMessage(embed {
+			watchService.log(embed {
 				field {
 					name = "New message in ${channel.name} containing watched word."
 					value = "${channel.asMention}\n ${event.message.contentRaw}"
@@ -47,6 +47,6 @@ class MessageListener(private val watchService: WatchService) {
 					}
 					color(Color.RED)
 				}
-			}).queue()
+			})
 	}
 }
