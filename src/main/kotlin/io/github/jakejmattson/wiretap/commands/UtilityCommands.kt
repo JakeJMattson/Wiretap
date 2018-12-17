@@ -1,6 +1,7 @@
 package io.github.jakejmattson.wiretap.commands
 
 import com.google.gson.Gson
+import io.github.jakejmattson.wiretap.extensions.asTimeString
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
 import java.awt.Color
@@ -59,21 +60,13 @@ fun utilityCommands() = commands {
 	command("Uptime") {
 		description = "Display how long the bot has been running."
 		execute {
-			val milliseconds = Date().time - startTime.time
-			val seconds = (milliseconds / 1000) % 60
-			val minutes = (milliseconds / (1000 * 60)) % 60
-			val hours = (milliseconds / (1000 * 60 * 60)) % 24
-			val days = (milliseconds / (1000 * 60 * 60 * 24))
+			val seconds = (Date().time - startTime.time) / 1000
 
 			it.respond(embed {
 				title("I have been running since")
 				description(startTime.toString())
 				color(Color.WHITE)
-
-				field {
-					name = "That's been"
-					value = "$days day(s), $hours hour(s), $minutes minute(s) and $seconds second(s)"
-				}
+				addField("That's been", seconds.asTimeString(), false)
 			})
 		}
 	}
