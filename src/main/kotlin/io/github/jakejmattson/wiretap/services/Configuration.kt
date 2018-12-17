@@ -7,9 +7,10 @@ data class Configuration(val token: String = "insert-token-here",
 						 val prefix: String = "?",
 						 val watchCategory: String = "insert-id-here",
 						 val wordLogChannel: String = "insert-id-here",
-						 val requiredRoleName: String = "Staff")
+						 val requiredRoleName: String = "Staff",
+						 val recoverWatched: Boolean = true)
 
-private val gson = GsonBuilder().setPrettyPrinting().create()
+val gson = GsonBuilder().setPrettyPrinting().create()
 private val configDir = File("config/")
 private val configFile = File("${configDir.name}/config.json")
 
