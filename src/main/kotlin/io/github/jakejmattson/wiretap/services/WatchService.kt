@@ -16,20 +16,28 @@ class WatchService(private val jda: JDA, private val config: Configuration) {
 	private val wordLog = jda.getTextChannelById(config.wordLogChannel)
 	private val category = jda.getCategoryById(config.watchCategory)
 	private val watched: Watched = loadBackup()
+	private val userList = watched.userList
+	private val wordList = watched.wordList
 
-	fun watchUser(user: User) = category.createTextChannel(user.name).queue { channel ->
-		watched.userList.addAndSave(WatchedUser(user.id, channel.id))
+	fun watchUser(user: User): Boolean {
+		if (getWatched(user) != null)
+			return false
+
+		category.createTextChannel(user.name).queue { channel ->
+			userList.addAndSave(WatchedUser(user.id, channel.id))
+		}
+
+		return true
 	}
+	fun watchWord(word: String) = if (!hasWatchedWord(word)) wordList.addAndSave(word) else false
 
-	fun watchWord(word: String) = watched.wordList.addAndSave(word)
+	fun remove(user: User) = userList.removeAndSave(getWatched(user))
+	fun remove(channel: TextChannel) = userList.removeAndSave(getWatched(channel))
+	fun remove(word: String) = wordList.removeAndSave(word)
 
-	fun remove(user: User) = watched.userList.removeAndSave(getWatched(user))
-	fun remove(channel: TextChannel) = watched.userList.removeAndSave(getWatched(channel))
-	fun remove(word: String) = watched.wordList.removeAndSave(word)
-
-	fun getWatched(user: User) =  watched.userList.firstOrNull { it.userId == user.id }
-	fun getWatched(channel: TextChannel) = watched.userList.firstOrNull { it.channelId == channel.id }
-	fun hasWatchedWord(content: String) = watched.wordList.any { content.contains(it) }
+	fun getWatched(user: User) =  userList.firstOrNull { it.userId == user.id }
+	fun getWatched(channel: TextChannel) = userList.firstOrNull { it.channelId == channel.id }
+	fun hasWatchedWord(content: String) = wordList.any { content.contains(it) }
 
 	fun logUser(user: User, embed: MessageEmbed) = jda.getTextChannelById(getWatched(user)?.channelId).sendMessage(embed).queue()
 	fun logWord(embed: MessageEmbed) = wordLog.sendMessage(embed).queue()

@@ -21,16 +21,12 @@ fun listenCommands(watchService: WatchService) = commands {
 				return@execute
 			}
 
-			watchService.watchUser(user)
-
-			it.respond(embed {
-				field {
-					name = "Listening to user!"
-					value = "Now listening to all messages from ${user.fullName()} (${user.asMention})"
-					inline = false
-				}
-				color(Color.green)
-			})
+			it.respond(
+				if (watchService.watchUser(user))
+					createSuccessEmbed("Now listening to all messages from ${user.fullName()} (${user.asMention})")
+				else
+					createFailureEmbed("Messages from ${user.fullName()} (${user.asMention}) are already being listened for.")
+			)
 		}
 	}
 
@@ -39,12 +35,13 @@ fun listenCommands(watchService: WatchService) = commands {
 		expect(SentenceArg)
 		execute {
 			val word = it.args.component1() as String
-			watchService.watchWord(word)
 
-			it.respond(embed {
-				addField("Listening for word!", "Now listening for all messages containing \"$word\"", false)
-				color(Color.green)
-			})
+			it.respond(
+				if (watchService.watchWord(word))
+					createSuccessEmbed("Now listening for all messages containing \"$word\"")
+				else
+					createFailureEmbed("Messages containing \"$word\" are already being listened for.")
+			)
 		}
 	}
 
@@ -54,9 +51,13 @@ fun listenCommands(watchService: WatchService) = commands {
 		execute {
 			val user = it.args.component1() as User
 			val name = user.fullName()
-			val wasRemoved = watchService.remove(user)
 
-			it.respond(if (wasRemoved) createSuccessEmbed(name) else createFailureEmbed(name))
+			it.respond(
+				if (watchService.remove(user))
+					createSuccessEmbed("Successfully removed $name from the watchlist")
+				else
+					createFailureEmbed("Failed to remove $name from the watchlist")
+			)
 		}
 	}
 
@@ -66,28 +67,32 @@ fun listenCommands(watchService: WatchService) = commands {
 		execute {
 			val word = it.args.component1() as String
 			val display = "\"$word\""
-			val wasRemoved = watchService.remove(word)
 
-			it.respond(if (wasRemoved) createSuccessEmbed(display) else createFailureEmbed(display))
+			it.respond(
+				if (watchService.remove(word))
+					createSuccessEmbed("Successfully removed $display from the watchlist")
+				else
+					createFailureEmbed("Failed to remove $display from the watchlist")
+			)
 		}
 	}
 }
 
-fun createSuccessEmbed(target: String) =
+fun createSuccessEmbed(message: String) =
 	embed {
 		field {
 			name = "Success!"
-			value = "Successfully removed $target from the watchlist"
+			value = message
 			inline = false
 		}
 		color(Color.green)
 	}
 
-fun createFailureEmbed(target: String) =
+fun createFailureEmbed(message: String) =
 	embed {
 		field {
 			name = "Failure!"
-			value = "Failed to remove $target from the watchlist"
+			value = message
 			inline = false
 		}
 		color(Color.red)
