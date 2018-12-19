@@ -40,6 +40,8 @@ Now your staff can quickly and easily review a user through a single channel wit
 | ListenFor | Sentence  | Begin listening for the target word or phrase.|
 | IgnoreUser| User      | Ignore previously listened user.              |
 | IgnoreWord| Sentence  | Ignore previously listened word.              |
+| ListUsers | (none)    | List currently watched users.                 |
+| ListWords | (none)    | List currently watched words.                 |
 
 #### Utility
 
