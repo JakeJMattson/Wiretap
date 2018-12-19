@@ -76,24 +76,36 @@ fun listenCommands(watchService: WatchService) = commands {
 			)
 		}
 	}
+
+	command("ListUsers") {
+		description = "List currently watched users."
+		execute {
+			val users = watchService.getUsersAsString()
+
+			it.respond(
+				if (users.isNotEmpty()) "**Watching the following users:**\n$users" else "Not currently watching any users.")
+		}
+	}
+
+	command("ListWords") {
+		description = "List currently watched wards."
+		execute {
+			val words = watchService.getWordsAsString()
+
+			it.respond(
+				if (words.isNotEmpty()) "**Watching the following words:**\n$words" else "Not currently watching any words.")
+		}
+	}
 }
 
 fun createSuccessEmbed(message: String) =
 	embed {
-		field {
-			name = "Success!"
-			value = message
-			inline = false
-		}
+		addField("Success!", message, false)
 		color(Color.green)
 	}
 
 fun createFailureEmbed(message: String) =
 	embed {
-		field {
-			name = "Failure!"
-			value = message
-			inline = false
-		}
+		addField("Failure!", message, false)
 		color(Color.red)
 	}

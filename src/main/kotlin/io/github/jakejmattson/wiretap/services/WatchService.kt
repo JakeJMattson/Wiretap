@@ -1,5 +1,6 @@
 package io.github.jakejmattson.wiretap.services
 
+import me.aberrantfox.kjdautils.extensions.jda.fullName
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.entities.*
 import java.io.File
@@ -41,6 +42,26 @@ class WatchService(private val jda: JDA, private val config: Configuration) {
 
 	fun logUser(user: User, embed: MessageEmbed) = jda.getTextChannelById(getWatched(user)?.channelId).sendMessage(embed).queue()
 	fun logWord(embed: MessageEmbed) = wordLog.sendMessage(embed).queue()
+
+	fun getUsersAsString(): String {
+		var verticalString = ""
+
+		userList.forEach {
+			verticalString += jda.getUserById(it.userId).fullName() + "\n"
+		}
+
+		return verticalString
+	}
+
+	fun getWordsAsString(): String {
+		var verticalString = ""
+
+		wordList.forEach {
+			verticalString += "$it\n"
+		}
+
+		return verticalString
+	}
 
 	private fun save() {
 		if (config.recoverWatched)

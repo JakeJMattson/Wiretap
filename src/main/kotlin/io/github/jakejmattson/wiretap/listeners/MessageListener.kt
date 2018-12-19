@@ -2,7 +2,7 @@ package io.github.jakejmattson.wiretap.listeners
 
 import com.google.common.eventbus.Subscribe
 import io.github.jakejmattson.wiretap.services.WatchService
-import me.aberrantfox.kjdautils.api.dsl.embed
+import me.aberrantfox.kjdautils.api.dsl.*
 import net.dv8tion.jda.core.entities.TextChannel
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import java.awt.Color
@@ -25,10 +25,8 @@ class MessageListener(private val watchService: WatchService) {
 					inline = false
 				}
 
-				if (hasWord) {
-					addField("Double alert warning!", "This message also contains a watched word.", false)
-					color(Color.RED)
-				}
+				if (hasWord)
+					createDoubleAlert(this, "This message also contains a watched word.")
 			})
 
 		if (hasWord)
@@ -39,14 +37,13 @@ class MessageListener(private val watchService: WatchService) {
 					inline = false
 				}
 
-				if (user != null) {
-					field {
-						name = "Double alert warning!"
-						value = "The author of this message is also watched (<#${user.channelId}>)."
-						inline = false
-					}
-					color(Color.RED)
-				}
+				if (user != null)
+					createDoubleAlert(this, "The author of this message is also watched (<#${user.channelId}>).")
 			})
 	}
+}
+
+fun createDoubleAlert(embed: EmbedDSLHandle, message: String) {
+	embed.addField("Double alert warning!", message, false)
+	embed.color(Color.red)
 }
