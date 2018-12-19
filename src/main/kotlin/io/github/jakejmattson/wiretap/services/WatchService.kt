@@ -1,17 +1,22 @@
 package io.github.jakejmattson.wiretap.services
 
+import io.github.jakejmattson.wiretap.Project.config
+import io.github.jakejmattson.wiretap.Project.gson
+import io.github.jakejmattson.wiretap.Project.jda
 import me.aberrantfox.kjdautils.extensions.jda.fullName
-import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.entities.*
 import java.io.File
 
-data class WatchedUser(val userId: String, val channelId: String)
+data class WatchedUser(val userId: String, val channelId: String) {
+	override fun toString(): String {
+		return jda.getUserById(userId).fullName()
+	}
+}
 
 data class Watched(val userList: MutableList<WatchedUser> = ArrayList<WatchedUser>(),
 				   val wordList: MutableList<String> = ArrayList<String>())
 
-class WatchService(private val jda: JDA, private val config: Configuration) {
-
+class WatchService {
 	private val backupDir = File("backup/")
 	private val backupFile = File("${backupDir.name}/backup.json")
 	private val wordLog = jda.getTextChannelById(config.wordLogChannel)
@@ -43,25 +48,8 @@ class WatchService(private val jda: JDA, private val config: Configuration) {
 	fun logUser(user: User, embed: MessageEmbed) = jda.getTextChannelById(getWatched(user)?.channelId).sendMessage(embed).queue()
 	fun logWord(embed: MessageEmbed) = wordLog.sendMessage(embed).queue()
 
-	fun getUsersAsString(): String {
-		var verticalString = ""
-
-		userList.forEach {
-			verticalString += jda.getUserById(it.userId).fullName() + "\n"
-		}
-
-		return verticalString
-	}
-
-	fun getWordsAsString(): String {
-		var verticalString = ""
-
-		wordList.forEach {
-			verticalString += "$it\n"
-		}
-
-		return verticalString
-	}
+	fun getUsersAsString() = userList.joinToString("\n")
+	fun getWordsAsString() = wordList.joinToString("\n")
 
 	private fun save() {
 		if (config.recoverWatched)

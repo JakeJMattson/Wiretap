@@ -1,26 +1,36 @@
 package io.github.jakejmattson.wiretap
 
+import com.google.gson.GsonBuilder
+import io.github.jakejmattson.wiretap.Project.config
 import io.github.jakejmattson.wiretap.listeners.rolePrecondition
 import io.github.jakejmattson.wiretap.services.*
 import me.aberrantfox.kjdautils.api.startBot
+import net.dv8tion.jda.core.JDA
 
 const val root = "io.github.jakejmattson.wiretap."
 
-fun main(args: Array<String>) {
-	val config = loadConfiguration() ?: return
-	start(config)
+object Project {
+	lateinit var jda: JDA
+	lateinit var config: Configuration
+	val gson = GsonBuilder().setPrettyPrinting().create()
 }
 
-private fun start(config: Configuration) = startBot(config.token) {
+fun main(args: Array<String>) {
+	Project.config = loadConfiguration() ?: return
+	start()
+}
 
-	val watchService = WatchService(jda, config)
+private fun start() = startBot(config.token) {
+
+	Project.jda = jda
+	val watchService = WatchService()
 	registerInjectionObject(watchService)
 
 	configure {
-		prefix = config.prefix
+		prefix = Project.config.prefix
 		commandPath = "${root}commands"
 		listenerPath = "${root}listeners"
 	}
 
-	registerCommandPreconditions(rolePrecondition(config))
+	registerCommandPreconditions(rolePrecondition())
 }

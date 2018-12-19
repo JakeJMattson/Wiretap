@@ -20,7 +20,7 @@ class MessageListener(private val watchService: WatchService) {
 		if (user != null)
 			watchService.logUser(event.author, embed {
 				field {
-					name = "New message in ${channel.name} from watched userId."
+					name = "New message in ${channel.name} from watched user."
 					value = "${channel.asMention}\n ${event.message.contentRaw}"
 					inline = false
 				}
