@@ -2,8 +2,10 @@ package io.github.jakejmattson.wiretap.listeners
 
 import io.github.jakejmattson.wiretap.Project.config
 import me.aberrantfox.kjdautils.api.dsl.CommandEvent
+import me.aberrantfox.kjdautils.api.dsl.Precondition
 import me.aberrantfox.kjdautils.internal.command.*
 
+@Precondition
 fun rolePrecondition()  = exit@ { event: CommandEvent ->
 
 	val guild = event.message.guild

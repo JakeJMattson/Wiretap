@@ -7,8 +7,6 @@ import io.github.jakejmattson.wiretap.services.*
 import me.aberrantfox.kjdautils.api.startBot
 import net.dv8tion.jda.core.JDA
 
-const val root = "io.github.jakejmattson.wiretap."
-
 object Project {
 	lateinit var jda: JDA
 	lateinit var config: Configuration
@@ -28,8 +26,7 @@ private fun start() = startBot(config.token) {
 
 	configure {
 		prefix = Project.config.prefix
-		commandPath = "${root}commands"
-		listenerPath = "${root}listeners"
+		globalPath = "io.github.jakejmattson.wiretap"
 	}
 
 	registerCommandPreconditions(rolePrecondition())
