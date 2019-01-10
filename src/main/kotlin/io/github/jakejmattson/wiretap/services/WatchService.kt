@@ -1,24 +1,26 @@
 package io.github.jakejmattson.wiretap.services
 
-import io.github.jakejmattson.wiretap.Project.config
-import io.github.jakejmattson.wiretap.Project.gson
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import io.github.jakejmattson.wiretap.Project.jda
+import me.aberrantfox.kjdautils.api.annotation.Service
 import me.aberrantfox.kjdautils.extensions.jda.fullName
+import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.entities.*
 import java.io.File
 
 data class WatchedUser(val userId: String, val channelId: String) {
-	override fun toString(): String {
-		return jda.getUserById(userId).fullName()
-	}
+	override fun toString() = jda.getUserById(userId).fullName()
 }
 
 data class Watched(val userList: MutableList<WatchedUser> = ArrayList<WatchedUser>(),
 				   val wordList: MutableList<String> = ArrayList<String>())
 
-class WatchService {
+@Service
+class WatchService(private val jda: JDA, private val config: Configuration) {
 	private val backupDir = File("backup/")
 	private val backupFile = File("${backupDir.name}/backup.json")
+	private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 	private val wordLog = jda.getTextChannelById(config.wordLogChannel)
 	private val category = jda.getCategoryById(config.watchCategory)
 	private val watched: Watched = loadBackup()
