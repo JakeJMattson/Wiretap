@@ -3,7 +3,7 @@
     <img src="https://img.shields.io/badge/Kotlin-1.3.11-blue.svg" alt="Kotlin 1.3.11">
   </a>
   <a href="https://gitlab.com/Aberrantfox/KUtils">
-    <img src="https://img.shields.io/badge/KUtils-0.9.11-blue.svg" alt="KUtils 0.9.11">
+    <img src="https://img.shields.io/badge/KUtils-0.9.13-blue.svg" alt="KUtils 0.9.13">
   </a>
   <a href="https://discordapp.com/users/254786431656919051/">
     <img src="https://img.shields.io/badge/Discord-JakeyWakey%231569-lightgrey.svg" alt="Discord JakeyWakey#1569">
