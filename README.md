@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://kotlinlang.org/">
-    <img src="https://img.shields.io/badge/Kotlin-1.3.11-blue.svg" alt="Kotlin 1.3.11">
+    <img src="https://img.shields.io/badge/Kotlin-1.3.20-blue.svg" alt="Kotlin 1.3.20">
   </a>
   <a href="https://gitlab.com/Aberrantfox/KUtils">
     <img src="https://img.shields.io/badge/KUtils-0.9.14-blue.svg" alt="KUtils 0.9.14">
