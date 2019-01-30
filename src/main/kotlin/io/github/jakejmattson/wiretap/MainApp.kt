@@ -13,6 +13,5 @@ private fun start(token: String) = startBot(token) {
 
 	configure {
 		prefix = "?"
-		globalPath = "io.github.jakejmattson.wiretap"
 	}
 }
