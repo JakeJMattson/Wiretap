@@ -13,13 +13,12 @@ data class WatchedUser(val userId: String, val channelId: String) {
 	override fun toString() = userId.idToUser().fullName()
 }
 
-data class Watched(val userList: MutableList<WatchedUser> = ArrayList<WatchedUser>(),
-				   val wordList: MutableList<String> = ArrayList<String>())
+data class Watched(val userList: MutableList<WatchedUser> = ArrayList(),
+				   val wordList: MutableList<String> = ArrayList())
 
 @Service
 class WatchService(jda: JDA, private val config: Configuration) {
-	private val backupDir = File("backup/")
-	private val backupFile = File("${backupDir.name}/backup.json")
+	private val backupFile = File("backup/backup.json")
 	private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 	private val wordLog = jda.getTextChannelById(config.wordLogChannel)
 	private val category = jda.getCategoryById(config.watchCategory)
@@ -28,7 +27,7 @@ class WatchService(jda: JDA, private val config: Configuration) {
 	private val wordList = watched.wordList
 
 	fun watchUser(user: User): Boolean {
-		if (getWatched(user) != null)
+		if (user.isWatched())
 			return false
 
 		category.createTextChannel(user.name).queue { channel ->
@@ -83,17 +82,21 @@ class WatchService(jda: JDA, private val config: Configuration) {
 	}
 
 	private fun loadBackup(): Watched {
+		val parent = backupFile.parentFile
+
 		if (config.recoverWatched && !backupFile.exists()) {
-			backupDir.mkdirs()
+			parent.mkdirs()
 			backupFile.writeText(gson.toJson(Watched()))
 		}
 
-		if (!config.recoverWatched && backupDir.exists())
-			backupDir.deleteRecursively()
+		if (!config.recoverWatched && parent.exists())
+			parent.deleteRecursively()
 
 		return if (config.recoverWatched && backupFile.exists())
 			gson.fromJson(backupFile.readText(), Watched::class.java)
 		else
 			Watched()
 	}
+
+	private fun User.isWatched() = userList.any { it.userId == this.id }
 }

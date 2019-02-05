@@ -5,13 +5,12 @@ import me.aberrantfox.kjdautils.api.startBot
 
 fun main(args: Array<String>) {
 	val token = args.first()
-	start(token)
-}
 
-private fun start(token: String) = startBot(token) {
-	conversionJDA = jda
+	startBot(token) {
+		conversionJDA = jda
 
-	configure {
-		prefix = "?"
+		configure {
+			prefix = "?"
+		}
 	}
 }
