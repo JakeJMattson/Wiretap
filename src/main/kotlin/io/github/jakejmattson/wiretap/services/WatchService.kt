@@ -57,30 +57,6 @@ class WatchService(jda: JDA, private val config: Configuration) {
 			backupFile.writeText(gson.toJson(watched))
 	}
 
-	private fun MutableList<WatchedUser>.addAndSave(watchedUser: WatchedUser): Boolean {
-		val result = this.add(watchedUser)
-		save()
-		return result
-	}
-
-	private fun MutableList<WatchedUser>.removeAndSave(watchedUser: WatchedUser?): Boolean {
-		val result = this.remove(watchedUser)
-		save()
-		return result
-	}
-
-	private fun MutableList<String>.addAndSave(string: String): Boolean {
-		val result = this.add(string)
-		save()
-		return result
-	}
-
-	private fun MutableList<String>.removeAndSave(string: String): Boolean {
-		val result = this.remove(string)
-		save()
-		return result
-	}
-
 	private fun loadBackup(): Watched {
 		val parent = backupFile.parentFile
 
@@ -98,5 +74,9 @@ class WatchService(jda: JDA, private val config: Configuration) {
 			Watched()
 	}
 
+	private fun MutableList<WatchedUser>.addAndSave(watchedUser: WatchedUser) = add(watchedUser).apply { save() }
+	private fun MutableList<WatchedUser>.removeAndSave(watchedUser: WatchedUser?) = remove(watchedUser).apply { save() }
+	private fun MutableList<String>.addAndSave(string: String) = add(string).apply { save() }
+	private fun MutableList<String>.removeAndSave(string: String) = remove(string).apply { save() }
 	private fun User.isWatched() = userList.any { it.userId == this.id }
 }
