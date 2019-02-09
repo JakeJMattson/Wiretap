@@ -16,14 +16,11 @@ class MessageListener(private val watchService: WatchService) {
 		val user = watchService.getWatched(event.author)
 		val hasWord = watchService.hasWatchedWord(event.message.contentRaw)
 		val channel = event.message.channel as TextChannel
+		val content = "${channel.asMention}\n ${event.message.contentRaw}"
 
 		if (user != null)
 			watchService.logUser(event.author, embed {
-				field {
-					name = "New message in ${channel.name} from watched user."
-					value = "${channel.asMention}\n ${event.message.contentRaw}"
-					inline = false
-				}
+				addField("New message in ${channel.name} from watched user.", content, true)
 
 				if (hasWord)
 					createDoubleAlert(this, "This message also contains a watched word.")
@@ -31,11 +28,7 @@ class MessageListener(private val watchService: WatchService) {
 
 		if (hasWord)
 			watchService.logWord(embed {
-				field {
-					name = "New message in ${channel.name} containing watched word."
-					value = "${channel.asMention}\n ${event.message.contentRaw}"
-					inline = false
-				}
+				addField("New message in ${channel.name} containing watched word.", content, true)
 
 				if (user != null)
 					createDoubleAlert(this, "The author of this message is also watched (<#${user.channelId}>).")

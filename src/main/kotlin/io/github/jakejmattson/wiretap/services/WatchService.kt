@@ -74,9 +74,9 @@ class WatchService(jda: JDA, private val config: Configuration) {
 			Watched()
 	}
 
-	private fun MutableList<WatchedUser>.addAndSave(watchedUser: WatchedUser) = add(watchedUser).apply { save() }
-	private fun MutableList<WatchedUser>.removeAndSave(watchedUser: WatchedUser?) = remove(watchedUser).apply { save() }
-	private fun MutableList<String>.addAndSave(string: String) = add(string).apply { save() }
-	private fun MutableList<String>.removeAndSave(string: String) = remove(string).apply { save() }
+	private fun MutableList<WatchedUser>.addAndSave(watchedUser: WatchedUser) = add(watchedUser).also { save() }
+	private fun MutableList<WatchedUser>.removeAndSave(watchedUser: WatchedUser?) = remove(watchedUser).also { save() }
+	private fun MutableList<String>.addAndSave(string: String) = add(string).also { save() }
+	private fun MutableList<String>.removeAndSave(string: String) = remove(string).also { save() }
 	private fun User.isWatched() = userList.any { it.userId == this.id }
 }
