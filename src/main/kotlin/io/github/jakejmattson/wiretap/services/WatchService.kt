@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder
 import io.github.jakejmattson.wiretap.extensions.*
 import me.aberrantfox.kjdautils.api.annotation.Service
 import me.aberrantfox.kjdautils.extensions.jda.fullName
-import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.entities.*
 import java.io.File
 
@@ -17,11 +16,11 @@ data class Watched(val userList: MutableList<WatchedUser> = ArrayList(),
 				   val wordList: MutableList<String> = ArrayList())
 
 @Service
-class WatchService(jda: JDA, private val config: Configuration) {
+class WatchService(private val config: Configuration, val init: JdaInitializer) {
 	private val backupFile = File("backup/backup.json")
 	private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
-	private val wordLog = jda.getTextChannelById(config.wordLogChannel)
-	private val category = jda.getCategoryById(config.watchCategory)
+	private val wordLog = config.wordLogChannel.idToChannel()
+	private val category = config.watchCategory.idToCategory()
 	private val watched: Watched = loadBackup()
 	private val userList = watched.userList
 	private val wordList = watched.wordList
