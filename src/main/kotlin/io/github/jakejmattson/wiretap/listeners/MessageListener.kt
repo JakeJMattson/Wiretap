@@ -10,8 +10,7 @@ import java.awt.Color
 class MessageListener(private val watchService: WatchService) {
 	@Subscribe
 	fun onGuildMessageReceived(event: GuildMessageReceivedEvent) {
-		if (event.author.isBot)
-			return
+		if (event.author.isBot) return
 
 		val user = watchService.getWatched(event.author)
 		val hasWord = watchService.hasWatchedWord(event.message.contentRaw)
@@ -36,7 +35,7 @@ class MessageListener(private val watchService: WatchService) {
 	}
 }
 
-fun createDoubleAlert(embed: EmbedDSLHandle, message: String) {
-	embed.addField("Double alert warning!", message, false)
-	embed.color(Color.red)
+fun createDoubleAlert(embed: EmbedDSLHandle, message: String) = embed.apply {
+	addField("Double alert warning!", message, false)
+	color(Color.red)
 }

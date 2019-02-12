@@ -16,8 +16,7 @@ fun listenCommands(watchService: WatchService) = commands {
 		execute {
 			val user = it.args.component1() as User
 
-			if (user.isBot)
-				return@execute it.respond("Invalid ID (bot)")
+			if (user.isBot) return@execute it.respond("Invalid ID (bot)")
 
 			it.respond(
 				if (watchService.watchUser(user))
