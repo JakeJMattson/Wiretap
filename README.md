@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://kotlinlang.org/">
-    <img src="https://img.shields.io/badge/Kotlin-1.3.21-blue.svg" alt="Kotlin 1.3.21">
+    <img src="https://img.shields.io/badge/Kotlin-1.3.30-blue.svg" alt="Kotlin 1.3.30">
   </a>
   <a href="https://gitlab.com/Aberrantfox/KUtils">
     <img src="https://img.shields.io/badge/KUtils-0.9.17-blue.svg" alt="KUtils 0.9.17">
@@ -9,10 +9,10 @@
     <img src="https://img.shields.io/badge/Discord-JakeyWakey%231569-lightgrey.svg" alt="Discord JakeyWakey#1569">
   </a>
   <a href="https://GitHub.com/JakeJMattson/Wiretap/releases/">
-    <img src="https://img.shields.io/github/release/JakeJMattson/Wiretap.svg" alt="release">
+    <img src="https://img.shields.io/github/release/JakeJMattson/Wiretap.svg" alt="Release">
   </a>
   <a href="LICENSE.md">
-    <img src="https://img.shields.io/github/license/JakeJMattson/Wiretap.svg" alt="license">
+    <img src="https://img.shields.io/github/license/JakeJMattson/Wiretap.svg" alt="License">
   </a>
 </p>
 
