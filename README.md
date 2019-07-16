@@ -33,29 +33,8 @@ If the user sends a message in any channel throughout the server, it will be log
 Now your staff can quickly and easily review a user through a single channel without the extra work or hassle.
 </p>
 
-### Commands: 
-
-#### Listen
-
-| Command   | Arguments | Effect                                    |
-| ------    | ------    | ------                                    |
-| ListenTo  | User      | Listen to a target user.                  |
-| ListenFor | Sentence  | Listen for a target word.                 |
-| IgnoreUser| User      | Ignore previously listened user.          |
-| IgnoreWord| Sentence  | Ignore previously listened word.          |
-| ListUsers | (none)    | List currently watched users.             |
-| ListWords | (none)    | List currently watched words.             |
-
-#### Utility
-
-| Command   | Arguments | Effect                                    |
-| ------    | ------    | ------                                    |
-| Author    | (none)    | Display the author of the bot.            |
-| Source    | (none)    | Display the source code via a GitLab link.|
-| Version   | (none)    | Display the current running version.      |
-| BotInfo   | (none)    | Display a summary or bot information.     |
-| Ping      | (none)    | Display the network ping of the bot.      |
-| Uptime    | (none)    | Display how long the bot has been running.|
+## Commands
+See [Commands.md](Commands.md) for a list of commands.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

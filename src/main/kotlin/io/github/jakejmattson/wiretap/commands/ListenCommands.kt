@@ -85,7 +85,7 @@ fun listenCommands(watchService: WatchService) = commands {
 	}
 
 	command("ListWords") {
-		description = "List currently watched wards."
+		description = "List currently watched words."
 		execute {
 			val words = watchService.getWordsAsString()
 
