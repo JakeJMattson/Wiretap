@@ -9,6 +9,7 @@ fun main(args: Array<String>) {
 		configure {
 			prefix = "?"
 			globalPath = "io.github.jakejmattson.wiretap"
+			registerInjectionObject(this@startBot.container)
 		}
 	}
 }
