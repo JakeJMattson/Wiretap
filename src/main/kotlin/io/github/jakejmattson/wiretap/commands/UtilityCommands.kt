@@ -12,7 +12,7 @@ private val propFile = Properties::class.java.getResource("/properties.json").re
 private val Project = Gson().fromJson(propFile, Properties::class.java)
 private val startTime = Date()
 
-@CommandSet("utility")
+@CommandSet("Utility")
 fun utilityCommands() = commands {
 	command("Author") {
 		description = "Display project author."
@@ -67,6 +67,25 @@ fun utilityCommands() = commands {
 				description(startTime.toString())
 				color(Color.WHITE)
 				addField("That's been", seconds.asTimeString(), false)
+			})
+		}
+	}
+
+	command("ListCommands") {
+		description = "List all available commands."
+		execute { event ->
+			val commands = event.container.commands.values.groupBy { it.category }.toList()
+				.sortedBy { (_, value) -> -value.size }.toMap()
+
+			event.respond( embed {
+				commands.forEach {
+					field {
+						name = it.key
+						value = it.value.sortedBy { it.name }.joinToString("\n") { it.name }
+						inline = true
+					}
+				}
+				setColor(Color.green )
 			})
 		}
 	}
