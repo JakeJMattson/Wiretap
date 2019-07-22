@@ -7,7 +7,7 @@ import me.aberrantfox.kjdautils.internal.command.arguments.*
 import net.dv8tion.jda.core.entities.User
 import java.awt.Color
 
-@CommandSet("listen")
+@CommandSet("Listen")
 fun listenCommands(watchService: WatchService) = commands {
 
 	command("ListenTo") {

@@ -5,6 +5,16 @@
 | ---------- | -------------------------- |
 | (Argument) | This argument is optional. |
 
+## Listen
+| Commands   | Arguments   | Description                      |
+| ---------- | ----------- | -------------------------------- |
+| IgnoreUser | DiscordUser | Ignore previously listened user. |
+| IgnoreWord | Text        | Ignore previously listened word. |
+| ListUsers  | <none>      | List currently watched users.    |
+| ListWords  | <none>      | List currently watched words.    |
+| ListenFor  | Text        | Listen for a target word.        |
+| ListenTo   | DiscordUser | Listen to a target user.         |
+
 ## Utility
 | Commands     | Arguments | Description                                |
 | ------------ | --------- | ------------------------------------------ |
@@ -16,14 +26,4 @@
 | Uptime       | <none>    | Display how long the bot has been running. |
 | Version      | <none>    | Display bot version.                       |
 | help         | (Word)    | Display a help menu                        |
-
-## listen
-| Commands   | Arguments   | Description                      |
-| ---------- | ----------- | -------------------------------- |
-| IgnoreUser | DiscordUser | Ignore previously listened user. |
-| IgnoreWord | Text        | Ignore previously listened word. |
-| ListUsers  | <none>      | List currently watched users.    |
-| ListWords  | <none>      | List currently watched words.    |
-| ListenFor  | Text        | Listen for a target word.        |
-| ListenTo   | DiscordUser | Listen to a target user.         |
 
