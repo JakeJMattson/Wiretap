@@ -1,7 +1,7 @@
 package io.github.jakejmattson.wiretap.commands
 
 import com.google.gson.Gson
-import io.github.jakejmattson.wiretap.extensions.asTimeString
+import io.github.jakejmattson.wiretap.extensions.*
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
 import java.awt.Color
@@ -58,16 +58,21 @@ fun utilityCommands() = commands {
 	}
 
 	command("Uptime") {
-		description = "Display how long the bot has been running."
+		description = "Displays how long the bot has been running."
 		execute {
 			val seconds = (Date().time - startTime.time) / 1000
 
-			it.respond(embed {
-				title("I have been running since")
-				description(startTime.toString())
-				color(Color.WHITE)
-				addField("That's been", seconds.asTimeString(), false)
-			})
+			it.respond(
+				embed {
+					setColor(Color.WHITE)
+					setTitle("I have been running since")
+					description = startTime.toString()
+
+					field {
+						name = "That's been"
+						value = seconds.toMinimalTimeString()
+					}
+				})
 		}
 	}
 
