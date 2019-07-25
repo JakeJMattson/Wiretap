@@ -33,6 +33,9 @@ If the user sends a message in any channel throughout the server, it will be log
 Now your staff can quickly and easily review a user through a single channel without the extra work or hassle.
 </p>
 
+## Setup
+See [setup.md](setup.md) for a setup guide.
+
 ## Commands
 See [Commands.md](Commands.md) for a list of commands.
 
