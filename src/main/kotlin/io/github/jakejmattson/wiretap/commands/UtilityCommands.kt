@@ -38,22 +38,22 @@ fun utilityCommands() = commands {
 	command("BotInfo") {
 		description = "Display various bot information."
 		execute {
-			it.respond(embed {
-				title(it.jda.selfUser.fullName())
+			it.respondEmbed {
+				title(it.discord.jda.selfUser.fullName())
 				description("The friendly eavesdropping bot.")
 				color(Color.green)
-				setThumbnail(it.jda.selfUser.effectiveAvatarUrl)
+				setThumbnail(it.discord.jda.selfUser.effectiveAvatarUrl)
 				addField("Author", Project.author, false)
 				addField("Source", Project.repository, false)
 				addField("Version", Project.version, false)
-			})
+			}
 		}
 	}
 
 	command("Ping") {
 		description = "Display network status."
 		execute {
-			it.respond("**Pinged in**: ${it.jda.ping}ms")
+			it.respond("**Pinged in**: ${it.discord.jda.gatewayPing}ms")
 		}
 	}
 
@@ -62,17 +62,16 @@ fun utilityCommands() = commands {
 		execute {
 			val seconds = (Date().time - startTime.time) / 1000
 
-			it.respond(
-				embed {
-					setColor(Color.WHITE)
-					setTitle("I have been running since")
-					description = startTime.toString()
+			it.respondEmbed {
+				setColor(Color.WHITE)
+				setTitle("I have been running since")
+				description = startTime.toString()
 
-					field {
-						name = "That's been"
-						value = seconds.toMinimalTimeString()
-					}
-				})
+				field {
+					name = "That's been"
+					value = seconds.toMinimalTimeString()
+				}
+			}
 		}
 	}
 
@@ -82,7 +81,7 @@ fun utilityCommands() = commands {
 			val commands = event.container.commands.values.groupBy { it.category }.toList()
 				.sortedBy { (_, value) -> -value.size }.toMap()
 
-			event.respond( embed {
+			event.respondEmbed {
 				commands.forEach {
 					field {
 						name = it.key
@@ -91,7 +90,7 @@ fun utilityCommands() = commands {
 					}
 				}
 				setColor(Color.green )
-			})
+			}
 		}
 	}
 }

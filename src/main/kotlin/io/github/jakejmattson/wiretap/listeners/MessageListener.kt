@@ -3,8 +3,8 @@ package io.github.jakejmattson.wiretap.listeners
 import com.google.common.eventbus.Subscribe
 import io.github.jakejmattson.wiretap.services.WatchService
 import me.aberrantfox.kjdautils.api.dsl.*
-import net.dv8tion.jda.core.entities.TextChannel
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
+import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import java.awt.Color
 
 class MessageListener(private val watchService: WatchService) {

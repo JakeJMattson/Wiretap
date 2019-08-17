@@ -4,7 +4,7 @@ import io.github.jakejmattson.wiretap.services.WatchService
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
 import me.aberrantfox.kjdautils.internal.command.arguments.*
-import net.dv8tion.jda.core.entities.User
+import net.dv8tion.jda.api.entities.User
 import java.awt.Color
 
 @CommandSet("Listen")

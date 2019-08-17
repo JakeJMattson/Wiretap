@@ -10,7 +10,7 @@ fun rolePrecondition(config: Configuration)  = exit@ { event: CommandEvent ->
 
 	val guild = event.message.guild
 	val requiredRole = guild.getRolesByName(config.requiredRoleName, true).firstOrNull()
-	val memberRoles = guild.getMember(event.author).roles
+	val memberRoles = guild.getMember(event.author)!!.roles
 
 	requiredRole ?: return@exit Fail("Required role (${config.requiredRoleName}) in config not found in guild!")
 

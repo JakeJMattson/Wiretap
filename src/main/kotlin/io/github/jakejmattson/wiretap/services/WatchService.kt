@@ -5,11 +5,11 @@ import com.google.gson.GsonBuilder
 import io.github.jakejmattson.wiretap.extensions.*
 import me.aberrantfox.kjdautils.api.annotation.Service
 import me.aberrantfox.kjdautils.extensions.jda.fullName
-import net.dv8tion.jda.core.entities.*
+import net.dv8tion.jda.api.entities.*
 import java.io.File
 
 data class WatchedUser(val userId: String, val channelId: String) {
-	override fun toString() = userId.idToUser().fullName()
+	override fun toString() = userId.idToUser()?.fullName() ?: userId
 }
 
 data class Watched(val userList: MutableList<WatchedUser> = ArrayList(),
@@ -29,7 +29,7 @@ class WatchService(private val config: Configuration, val init: JdaInitializer) 
 		if (user.isWatched())
 			return false
 
-		category.createTextChannel(user.name).queue { channel ->
+		category?.createTextChannel(user.name)?.queue { channel ->
 			userList.addAndSave(WatchedUser(user.id, channel.id))
 		}
 
@@ -45,8 +45,8 @@ class WatchService(private val config: Configuration, val init: JdaInitializer) 
 	fun getWatched(channel: TextChannel) = userList.firstOrNull { it.channelId == channel.id }
 	fun hasWatchedWord(content: String) = wordList.any { content.contains(it) }
 
-	fun logUser(user: User, embed: MessageEmbed) = getWatched(user)?.channelId!!.idToChannel().sendMessage(embed).queue()
-	fun logWord(embed: MessageEmbed) = wordLog.sendMessage(embed).queue()
+	fun logUser(user: User, embed: MessageEmbed) = getWatched(user)?.channelId!!.idToChannel()?.sendMessage(embed)?.queue()
+	fun logWord(embed: MessageEmbed) = wordLog?.sendMessage(embed)?.queue()
 
 	fun getUsersAsString() = userList.joinToString("\n")
 	fun getWordsAsString() = wordList.joinToString("\n")
@@ -73,9 +73,7 @@ class WatchService(private val config: Configuration, val init: JdaInitializer) 
 			Watched()
 	}
 
-	private fun MutableList<WatchedUser>.addAndSave(watchedUser: WatchedUser) = add(watchedUser).also { save() }
-	private fun MutableList<WatchedUser>.removeAndSave(watchedUser: WatchedUser?) = remove(watchedUser).also { save() }
-	private fun MutableList<String>.addAndSave(string: String) = add(string).also { save() }
-	private fun MutableList<String>.removeAndSave(string: String) = remove(string).also { save() }
+	private fun <T> MutableList<T>.addAndSave(element: T) = this.add(element).also { save() }
+	private fun <T> MutableList<T>.removeAndSave(element: T?) = this.remove(element).also { save() }
 	private fun User.isWatched() = userList.any { it.userId == this.id }
 }
