@@ -37,5 +37,5 @@ class MessageListener(private val watchService: WatchService) {
 
 fun createDoubleAlert(embed: EmbedDSLHandle, message: String) = embed.apply {
 	addField("Double alert warning!", message, false)
-	color(Color.red)
+	color = Color.red
 }

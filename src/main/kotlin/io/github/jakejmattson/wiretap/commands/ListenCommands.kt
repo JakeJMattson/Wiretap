@@ -3,7 +3,7 @@ package io.github.jakejmattson.wiretap.commands
 import io.github.jakejmattson.wiretap.services.WatchService
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
-import me.aberrantfox.kjdautils.internal.command.arguments.*
+import me.aberrantfox.kjdautils.internal.arguments.*
 import net.dv8tion.jda.api.entities.User
 import java.awt.Color
 
@@ -98,11 +98,11 @@ fun listenCommands(watchService: WatchService) = commands {
 fun createSuccessEmbed(message: String) =
 	embed {
 		addField("Success!", message, false)
-		color(Color.green)
+		color = Color.green
 	}
 
 fun createFailureEmbed(message: String) =
 	embed {
 		addField("Failure!", message, false)
-		color(Color.red)
+		color = Color.red
 	}

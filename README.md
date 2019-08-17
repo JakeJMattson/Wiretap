@@ -1,12 +1,9 @@
 <p align="center">
   <a href="https://kotlinlang.org/">
-    <img src="https://img.shields.io/badge/Kotlin-1.3.30-blue.svg" alt="Kotlin 1.3.30">
+    <img src="https://img.shields.io/badge/Kotlin-1.3.41-blue.svg" alt="Kotlin 1.3.41">
   </a>
   <a href="https://gitlab.com/Aberrantfox/KUtils">
-    <img src="https://img.shields.io/badge/KUtils-0.10.0-blue.svg" alt="KUtils 0.10.0">
-  </a>
-  <a href="https://discordapp.com/users/254786431656919051/">
-    <img src="https://img.shields.io/badge/Discord-JakeyWakey%231569-lightgrey.svg" alt="Discord JakeyWakey#1569">
+    <img src="https://img.shields.io/badge/KUtils-0.10.1-blue.svg" alt="KUtils 0.10.1">
   </a>
   <a href="https://GitHub.com/JakeJMattson/Wiretap/releases/">
     <img src="https://img.shields.io/github/release/JakeJMattson/Wiretap.svg" alt="Release">
@@ -37,7 +34,7 @@ Now your staff can quickly and easily review a user through a single channel wit
 See [setup.md](setup.md) for a setup guide.
 
 ## Commands
-See [Commands.md](Commands.md) for a list of commands.
+See [Commands.md](commands.md) for a list of commands.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

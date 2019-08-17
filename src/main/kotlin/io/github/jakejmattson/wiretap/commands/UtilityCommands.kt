@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import io.github.jakejmattson.wiretap.extensions.*
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
-import java.awt.Color
 import java.util.*
 
 private data class Properties(val version: String, val author: String, val repository: String)
@@ -39,10 +38,9 @@ fun utilityCommands() = commands {
 		description = "Display various bot information."
 		execute {
 			it.respondEmbed {
-				title(it.discord.jda.selfUser.fullName())
-				description("The friendly eavesdropping bot.")
-				color(Color.green)
-				setThumbnail(it.discord.jda.selfUser.effectiveAvatarUrl)
+				title = it.discord.jda.selfUser.fullName()
+				description = "The friendly eavesdropping bot."
+				thumbnail = it.discord.jda.selfUser.effectiveAvatarUrl
 				addField("Author", Project.author, false)
 				addField("Source", Project.repository, false)
 				addField("Version", Project.version, false)
@@ -63,8 +61,7 @@ fun utilityCommands() = commands {
 			val seconds = (Date().time - startTime.time) / 1000
 
 			it.respondEmbed {
-				setColor(Color.WHITE)
-				setTitle("I have been running since")
+				title = "I have been running since"
 				description = startTime.toString()
 
 				field {
@@ -89,7 +86,6 @@ fun utilityCommands() = commands {
 						inline = true
 					}
 				}
-				setColor(Color.green )
 			}
 		}
 	}
