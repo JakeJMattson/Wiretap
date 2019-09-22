@@ -71,22 +71,4 @@ fun utilityCommands() = commands {
 			}
 		}
 	}
-
-	command("ListCommands") {
-		description = "List all available commands."
-		execute { event ->
-			val commands = event.container.commands.values.groupBy { it.category }.toList()
-				.sortedBy { (_, value) -> -value.size }.toMap()
-
-			event.respondEmbed {
-				commands.forEach {
-					field {
-						name = it.key
-						value = it.value.sortedBy { it.name }.joinToString("\n") { it.name }
-						inline = true
-					}
-				}
-			}
-		}
-	}
 }
