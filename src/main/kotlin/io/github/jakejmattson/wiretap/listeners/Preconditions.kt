@@ -6,10 +6,10 @@ import me.aberrantfox.kjdautils.api.dsl.command.CommandEvent
 import me.aberrantfox.kjdautils.internal.command.*
 
 @Precondition
-fun rolePrecondition(config: Configuration)  = precondition { event: CommandEvent<*> ->
-	val guild = event.message.guild
+fun rolePrecondition(config: Configuration)  = precondition {
+	val guild = it.message.guild
 	val requiredRole = guild.getRolesByName(config.requiredRoleName, true).firstOrNull()
-	val memberRoles = guild.getMember(event.author)!!.roles
+	val memberRoles = guild.getMember(it.author)!!.roles
 
 	requiredRole ?: return@precondition Fail("Required role (${config.requiredRoleName}) in config not found in guild!")
 

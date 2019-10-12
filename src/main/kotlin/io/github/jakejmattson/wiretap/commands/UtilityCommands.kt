@@ -1,9 +1,10 @@
 package io.github.jakejmattson.wiretap.commands
 
 import com.google.gson.Gson
-import io.github.jakejmattson.wiretap.extensions.*
 import me.aberrantfox.kjdautils.api.dsl.command.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
+import me.aberrantfox.kjdautils.extensions.stdlib.toMinimalTimeString
+import java.awt.Color
 import java.util.*
 
 private data class Properties(val version: String, val author: String, val repository: String)
@@ -37,9 +38,11 @@ fun utilityCommands() = commands {
 	command("BotInfo") {
 		description = "Display various bot information."
 		execute {
-			it.respondEmbed {
+			it.respond {
 				title = it.discord.jda.selfUser.fullName()
 				description = "The friendly eavesdropping bot."
+				color = Color(0x00bfff)
+
 				thumbnail = it.discord.jda.selfUser.effectiveAvatarUrl
 				addField("Author", Project.author, false)
 				addField("Source", Project.repository, false)
@@ -60,9 +63,10 @@ fun utilityCommands() = commands {
 		execute {
 			val seconds = (Date().time - startTime.time) / 1000
 
-			it.respondEmbed {
+			it.respond {
 				title = "I have been running since"
 				description = startTime.toString()
+				color = Color(0x00bfff)
 
 				field {
 					name = "That's been"
