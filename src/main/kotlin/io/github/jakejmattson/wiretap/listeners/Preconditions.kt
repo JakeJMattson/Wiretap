@@ -2,10 +2,11 @@ package io.github.jakejmattson.wiretap.listeners
 
 import io.github.jakejmattson.wiretap.services.Configuration
 import me.aberrantfox.kjdautils.api.dsl.*
+import me.aberrantfox.kjdautils.api.dsl.command.CommandEvent
 import me.aberrantfox.kjdautils.internal.command.*
 
 @Precondition
-fun rolePrecondition(config: Configuration)  = precondition { event: CommandEvent ->
+fun rolePrecondition(config: Configuration)  = precondition { event: CommandEvent<*> ->
 	val guild = event.message.guild
 	val requiredRole = guild.getRolesByName(config.requiredRoleName, true).firstOrNull()
 	val memberRoles = guild.getMember(event.author)!!.roles

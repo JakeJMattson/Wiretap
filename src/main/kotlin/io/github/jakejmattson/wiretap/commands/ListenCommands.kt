@@ -2,6 +2,7 @@ package io.github.jakejmattson.wiretap.commands
 
 import io.github.jakejmattson.wiretap.services.WatchService
 import me.aberrantfox.kjdautils.api.dsl.*
+import me.aberrantfox.kjdautils.api.dsl.command.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
 import me.aberrantfox.kjdautils.internal.arguments.*
 import net.dv8tion.jda.api.entities.User
@@ -12,9 +13,8 @@ fun listenCommands(watchService: WatchService) = commands {
 
 	command("ListenTo") {
 		description = "Listen to a target user."
-		expect(UserArg)
-		execute {
-			val user = it.args.component1() as User
+		execute(UserArg) {
+			val user = it.args.component1()
 
 			if (user.isBot) return@execute it.respond("Invalid ID (bot)")
 
@@ -29,9 +29,8 @@ fun listenCommands(watchService: WatchService) = commands {
 
 	command("ListenFor") {
 		description = "Listen for a target word."
-		expect(SentenceArg)
-		execute {
-			val word = it.args.component1() as String
+		execute(SentenceArg) {
+			val word = it.args.component1()
 
 			it.respond(
 				if (watchService.watchWord(word))
@@ -44,9 +43,8 @@ fun listenCommands(watchService: WatchService) = commands {
 
 	command("IgnoreUser") {
 		description = "Ignore previously listened user."
-		expect(UserArg)
-		execute {
-			val user = it.args.component1() as User
+		execute(UserArg) {
+			val user = it.args.component1()
 			val name = user.fullName()
 
 			it.respond(
@@ -60,9 +58,8 @@ fun listenCommands(watchService: WatchService) = commands {
 
 	command("IgnoreWord") {
 		description = "Ignore previously listened word."
-		expect(SentenceArg)
-		execute {
-			val word = it.args.component1() as String
+		execute(SentenceArg) {
+			val word = it.args.component1()
 			val display = "\"$word\""
 
 			it.respond(

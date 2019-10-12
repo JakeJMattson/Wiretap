@@ -2,7 +2,7 @@ package io.github.jakejmattson.wiretap.commands
 
 import com.google.gson.Gson
 import io.github.jakejmattson.wiretap.extensions.*
-import me.aberrantfox.kjdautils.api.dsl.*
+import me.aberrantfox.kjdautils.api.dsl.command.*
 import me.aberrantfox.kjdautils.extensions.jda.fullName
 import java.util.*
 
