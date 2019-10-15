@@ -18,11 +18,7 @@
 ## Utility
 | Commands | Arguments | Description                                 |
 | -------- | --------- | ------------------------------------------- |
-| Author   | <none>    | Display project author.                     |
-| BotInfo  | <none>    | Display various bot information.            |
 | Help     | (Command) | Display a help menu.                        |
 | Ping     | <none>    | Display network status.                     |
-| Source   | <none>    | Display repository link.                    |
 | Uptime   | <none>    | Displays how long the bot has been running. |
-| Version  | <none>    | Display bot version.                        |
 

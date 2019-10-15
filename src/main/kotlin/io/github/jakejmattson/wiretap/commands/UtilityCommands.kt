@@ -1,57 +1,14 @@
 package io.github.jakejmattson.wiretap.commands
 
-import com.google.gson.Gson
 import me.aberrantfox.kjdautils.api.dsl.command.*
-import me.aberrantfox.kjdautils.extensions.jda.fullName
 import me.aberrantfox.kjdautils.extensions.stdlib.toMinimalTimeString
 import java.awt.Color
 import java.util.Date
 
-private data class Properties(val version: String, val author: String, val repository: String)
-
-private val propFile = Properties::class.java.getResource("/properties.json").readText()
-private val Project = Gson().fromJson(propFile, Properties::class.java)
 private val startTime = Date()
 
 @CommandSet("Utility")
 fun utilityCommands() = commands {
-    command("Author") {
-        description = "Display project author."
-        execute {
-            it.respond("**Project Author**: ${Project.author}")
-        }
-    }
-
-    command("Source") {
-        description = "Display repository link."
-        execute {
-            it.respond("**Project Repository**: ${Project.repository}")
-        }
-    }
-
-    command("Version") {
-        description = "Display bot version."
-        execute {
-            it.respond("**Running Version**: ${Project.version}")
-        }
-    }
-
-    command("BotInfo") {
-        description = "Display various bot information."
-        execute {
-            it.respond {
-                title = it.discord.jda.selfUser.fullName()
-                description = "The friendly eavesdropping bot."
-                color = Color(0x00bfff)
-
-                thumbnail = it.discord.jda.selfUser.effectiveAvatarUrl
-                addField("Author", Project.author, false)
-                addField("Source", Project.repository, false)
-                addField("Version", Project.version, false)
-            }
-        }
-    }
-
     command("Ping") {
         description = "Display network status."
         execute {
