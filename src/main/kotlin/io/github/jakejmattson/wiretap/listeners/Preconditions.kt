@@ -2,19 +2,18 @@ package io.github.jakejmattson.wiretap.listeners
 
 import io.github.jakejmattson.wiretap.services.Configuration
 import me.aberrantfox.kjdautils.api.dsl.*
-import me.aberrantfox.kjdautils.api.dsl.command.CommandEvent
 import me.aberrantfox.kjdautils.internal.command.*
 
 @Precondition
-fun rolePrecondition(config: Configuration)  = precondition {
-	val guild = it.message.guild
-	val requiredRole = guild.getRolesByName(config.requiredRoleName, true).firstOrNull()
-	val memberRoles = guild.getMember(it.author)!!.roles
+fun rolePrecondition(config: Configuration) = precondition {
+    val guild = it.message.guild
+    val requiredRole = guild.getRolesByName(config.requiredRoleName, true).firstOrNull()
+    val memberRoles = guild.getMember(it.author)!!.roles
 
-	requiredRole ?: return@precondition Fail("Required role (${config.requiredRoleName}) in config not found in guild!")
+    requiredRole ?: return@precondition Fail("Required role (${config.requiredRoleName}) in config not found in guild!")
 
-	if (requiredRole !in memberRoles)
-		return@precondition Fail("You do not have the required role: ${requiredRole.name}")
+    if (requiredRole !in memberRoles)
+        return@precondition Fail("You do not have the required role: ${requiredRole.name}")
 
-	return@precondition Pass
+    return@precondition Pass
 }

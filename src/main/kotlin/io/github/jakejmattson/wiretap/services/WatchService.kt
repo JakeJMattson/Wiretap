@@ -1,7 +1,6 @@
 package io.github.jakejmattson.wiretap.services
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.google.gson.*
 import io.github.jakejmattson.wiretap.extensions.*
 import me.aberrantfox.kjdautils.api.annotation.Service
 import me.aberrantfox.kjdautils.extensions.jda.fullName
@@ -9,71 +8,72 @@ import net.dv8tion.jda.api.entities.*
 import java.io.File
 
 data class WatchedUser(val userId: String, val channelId: String) {
-	override fun toString() = userId.idToUser()?.fullName() ?: userId
+    override fun toString() = userId.idToUser()?.fullName() ?: userId
 }
 
 data class Watched(val userList: MutableList<WatchedUser> = ArrayList(),
-				   val wordList: MutableList<String> = ArrayList())
+                   val wordList: MutableList<String> = ArrayList())
 
 @Service
 class WatchService(private val config: Configuration, val init: JdaInitializer) {
-	private val backupFile = File("backup/backup.json")
-	private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
-	private val wordLog = config.wordLogChannel.idToChannel()
-	private val category = config.watchCategory.idToCategory()
-	private val watched: Watched = loadBackup()
-	private val userList = watched.userList
-	private val wordList = watched.wordList
+    private val backupFile = File("backup/backup.json")
+    private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
+    private val wordLog = config.wordLogChannel.idToChannel()
+    private val category = config.watchCategory.idToCategory()
+    private val watched: Watched = loadBackup()
+    private val userList = watched.userList
+    private val wordList = watched.wordList
 
-	fun watchUser(user: User): Boolean {
-		if (user.isWatched())
-			return false
+    fun watchUser(user: User): Boolean {
+        if (user.isWatched())
+            return false
 
-		category?.createTextChannel(user.name)?.queue { channel ->
-			userList.addAndSave(WatchedUser(user.id, channel.id))
-		}
+        category?.createTextChannel(user.name)?.queue { channel ->
+            userList.addAndSave(WatchedUser(user.id, channel.id))
+        }
 
-		return true
-	}
-	fun watchWord(word: String) = if (!hasWatchedWord(word)) wordList.addAndSave(word) else false
+        return true
+    }
 
-	fun remove(user: User) = userList.removeAndSave(getWatched(user))
-	fun remove(channel: TextChannel) = userList.removeAndSave(getWatched(channel))
-	fun remove(word: String) = wordList.removeAndSave(word)
+    fun watchWord(word: String) = if (!hasWatchedWord(word)) wordList.addAndSave(word) else false
 
-	fun getWatched(user: User) =  userList.firstOrNull { it.userId == user.id }
-	fun getWatched(channel: TextChannel) = userList.firstOrNull { it.channelId == channel.id }
-	fun hasWatchedWord(content: String) = wordList.any { content.contains(it) }
+    fun remove(user: User) = userList.removeAndSave(getWatched(user))
+    fun remove(channel: TextChannel) = userList.removeAndSave(getWatched(channel))
+    fun remove(word: String) = wordList.removeAndSave(word)
 
-	fun logUser(user: User, embed: MessageEmbed) = getWatched(user)?.channelId!!.idToChannel()?.sendMessage(embed)?.queue()
-	fun logWord(embed: MessageEmbed) = wordLog?.sendMessage(embed)?.queue()
+    fun getWatched(user: User) = userList.firstOrNull { it.userId == user.id }
+    fun getWatched(channel: TextChannel) = userList.firstOrNull { it.channelId == channel.id }
+    fun hasWatchedWord(content: String) = wordList.any { content.contains(it) }
 
-	fun getUsersAsString() = userList.joinToString("\n")
-	fun getWordsAsString() = wordList.joinToString("\n")
+    fun logUser(user: User, embed: MessageEmbed) = getWatched(user)?.channelId!!.idToChannel()?.sendMessage(embed)?.queue()
+    fun logWord(embed: MessageEmbed) = wordLog?.sendMessage(embed)?.queue()
 
-	private fun save() {
-		if (config.recoverWatched)
-			backupFile.writeText(gson.toJson(watched))
-	}
+    fun getUsersAsString() = userList.joinToString("\n")
+    fun getWordsAsString() = wordList.joinToString("\n")
 
-	private fun loadBackup(): Watched {
-		val parent = backupFile.parentFile
+    private fun save() {
+        if (config.recoverWatched)
+            backupFile.writeText(gson.toJson(watched))
+    }
 
-		if (config.recoverWatched && !backupFile.exists()) {
-			parent.mkdirs()
-			backupFile.writeText(gson.toJson(Watched()))
-		}
+    private fun loadBackup(): Watched {
+        val parent = backupFile.parentFile
 
-		if (!config.recoverWatched && parent.exists())
-			parent.deleteRecursively()
+        if (config.recoverWatched && !backupFile.exists()) {
+            parent.mkdirs()
+            backupFile.writeText(gson.toJson(Watched()))
+        }
 
-		return if (config.recoverWatched && backupFile.exists())
-			gson.fromJson(backupFile.readText(), Watched::class.java)
-		else
-			Watched()
-	}
+        if (!config.recoverWatched && parent.exists())
+            parent.deleteRecursively()
 
-	private fun <T> MutableList<T>.addAndSave(element: T) = this.add(element).also { save() }
-	private fun <T> MutableList<T>.removeAndSave(element: T?) = this.remove(element).also { save() }
-	private fun User.isWatched() = userList.any { it.userId == this.id }
+        return if (config.recoverWatched && backupFile.exists())
+            gson.fromJson(backupFile.readText(), Watched::class.java)
+        else
+            Watched()
+    }
+
+    private fun <T> MutableList<T>.addAndSave(element: T) = this.add(element).also { save() }
+    private fun <T> MutableList<T>.removeAndSave(element: T?) = this.remove(element).also { save() }
+    private fun User.isWatched() = userList.any { it.userId == this.id }
 }

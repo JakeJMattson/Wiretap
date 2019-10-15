@@ -1,105 +1,104 @@
 package io.github.jakejmattson.wiretap.commands
 
 import io.github.jakejmattson.wiretap.services.WatchService
-import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.api.dsl.command.*
+import me.aberrantfox.kjdautils.api.dsl.embed
 import me.aberrantfox.kjdautils.extensions.jda.fullName
 import me.aberrantfox.kjdautils.internal.arguments.*
-import net.dv8tion.jda.api.entities.User
 import java.awt.Color
 
 @CommandSet("Listen")
 fun listenCommands(watchService: WatchService) = commands {
 
-	command("ListenTo") {
-		description = "Listen to a target user."
-		execute(UserArg) {
-			val user = it.args.component1()
+    command("ListenTo") {
+        description = "Listen to a target user."
+        execute(UserArg) {
+            val user = it.args.first
 
-			if (user.isBot) return@execute it.respond("Invalid ID (bot)")
+            if (user.isBot) return@execute it.respond("Invalid ID (bot)")
 
-			it.respond(
-				if (watchService.watchUser(user))
-					createSuccessEmbed("Now listening to all messages from ${user.fullName()} (${user.asMention})")
-				else
-					createFailureEmbed("Messages from ${user.fullName()} (${user.asMention}) are already being listened for.")
-			)
-		}
-	}
+            it.respond(
+                if (watchService.watchUser(user))
+                    createSuccessEmbed("Now listening to all messages from ${user.fullName()} (${user.asMention})")
+                else
+                    createFailureEmbed("Messages from ${user.fullName()} (${user.asMention}) are already being listened for.")
+            )
+        }
+    }
 
-	command("ListenFor") {
-		description = "Listen for a target word."
-		execute(SentenceArg) {
-			val word = it.args.component1()
+    command("ListenFor") {
+        description = "Listen for a target word."
+        execute(SentenceArg) {
+            val word = it.args.first
 
-			it.respond(
-				if (watchService.watchWord(word))
-					createSuccessEmbed("Now listening for all messages containing \"$word\"")
-				else
-					createFailureEmbed("Messages containing \"$word\" are already being listened for.")
-			)
-		}
-	}
+            it.respond(
+                if (watchService.watchWord(word))
+                    createSuccessEmbed("Now listening for all messages containing \"$word\"")
+                else
+                    createFailureEmbed("Messages containing \"$word\" are already being listened for.")
+            )
+        }
+    }
 
-	command("IgnoreUser") {
-		description = "Ignore previously listened user."
-		execute(UserArg) {
-			val user = it.args.component1()
-			val name = user.fullName()
+    command("IgnoreUser") {
+        description = "Ignore previously listened user."
+        execute(UserArg) {
+            val user = it.args.first
+            val name = user.fullName()
 
-			it.respond(
-				if (watchService.remove(user))
-					createSuccessEmbed("Successfully removed $name from the watchlist")
-				else
-					createFailureEmbed("Failed to remove $name from the watchlist")
-			)
-		}
-	}
+            it.respond(
+                if (watchService.remove(user))
+                    createSuccessEmbed("Successfully removed $name from the watchlist")
+                else
+                    createFailureEmbed("Failed to remove $name from the watchlist")
+            )
+        }
+    }
 
-	command("IgnoreWord") {
-		description = "Ignore previously listened word."
-		execute(SentenceArg) {
-			val word = it.args.component1()
-			val display = "\"$word\""
+    command("IgnoreWord") {
+        description = "Ignore previously listened word."
+        execute(SentenceArg) {
+            val word = it.args.first
+            val display = "\"$word\""
 
-			it.respond(
-				if (watchService.remove(word))
-					createSuccessEmbed("Successfully removed $display from the watchlist")
-				else
-					createFailureEmbed("Failed to remove $display from the watchlist")
-			)
-		}
-	}
+            it.respond(
+                if (watchService.remove(word))
+                    createSuccessEmbed("Successfully removed $display from the watchlist")
+                else
+                    createFailureEmbed("Failed to remove $display from the watchlist")
+            )
+        }
+    }
 
-	command("ListUsers") {
-		description = "List currently watched users."
-		execute {
-			val users = watchService.getUsersAsString()
+    command("ListUsers") {
+        description = "List currently watched users."
+        execute {
+            val users = watchService.getUsersAsString()
 
-			it.respond(
-				if (users.isNotEmpty()) "**Watching the following users:**\n$users" else "Not currently watching any users.")
-		}
-	}
+            it.respond(
+                if (users.isNotEmpty()) "**Watching the following users:**\n$users" else "Not currently watching any users.")
+        }
+    }
 
-	command("ListWords") {
-		description = "List currently watched words."
-		execute {
-			val words = watchService.getWordsAsString()
+    command("ListWords") {
+        description = "List currently watched words."
+        execute {
+            val words = watchService.getWordsAsString()
 
-			it.respond(
-				if (words.isNotEmpty()) "**Watching the following words:**\n$words" else "Not currently watching any words.")
-		}
-	}
+            it.respond(
+                if (words.isNotEmpty()) "**Watching the following words:**\n$words" else "Not currently watching any words.")
+        }
+    }
 }
 
 fun createSuccessEmbed(message: String) =
-	embed {
-		addField("Success!", message, false)
-		color = Color.green
-	}
+    embed {
+        addField("Success!", message, false)
+        color = Color.green
+    }
 
 fun createFailureEmbed(message: String) =
-	embed {
-		addField("Failure!", message, false)
-		color = Color.red
-	}
+    embed {
+        addField("Failure!", message, false)
+        color = Color.red
+    }
