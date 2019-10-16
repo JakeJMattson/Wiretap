@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import me.aberrantfox.kjdautils.api.annotation.Service
 import me.aberrantfox.kjdautils.api.dsl.embed
 import me.aberrantfox.kjdautils.discord.Discord
-import me.aberrantfox.kjdautils.extensions.jda.*
+import me.aberrantfox.kjdautils.extensions.jda.fullName
 import java.awt.Color
 
 @Service

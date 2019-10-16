@@ -17,12 +17,12 @@ fun listenCommands(watchService: WatchService) = commands {
 
             if (user.isBot) return@execute it.respond("Invalid ID (bot)")
 
-            it.respond(
-                if (watchService.watchUser(user))
-                    createSuccessEmbed("Now listening to all messages from ${user.fullName()} (${user.asMention})")
-                else
-                    createFailureEmbed("Messages from ${user.fullName()} (${user.asMention}) are already being listened for.")
-            )
+            val response = if (watchService.watchUser(user))
+                createSuccessEmbed("Now listening to all messages from ${user.fullName()} (${user.asMention})")
+            else
+                createFailureEmbed("Messages from ${user.fullName()} (${user.asMention}) are already being listened for.")
+
+            it.respond(response)
         }
     }
 
@@ -31,12 +31,12 @@ fun listenCommands(watchService: WatchService) = commands {
         execute(SentenceArg) {
             val word = it.args.first
 
-            it.respond(
-                if (watchService.watchWord(word))
-                    createSuccessEmbed("Now listening for all messages containing \"$word\"")
-                else
-                    createFailureEmbed("Messages containing \"$word\" are already being listened for.")
-            )
+            val response = if (watchService.watchWord(word))
+                createSuccessEmbed("Now listening for all messages containing \"$word\"")
+            else
+                createFailureEmbed("Messages containing \"$word\" are already being listened for.")
+
+            it.respond(response)
         }
     }
 
@@ -46,12 +46,12 @@ fun listenCommands(watchService: WatchService) = commands {
             val user = it.args.first
             val name = user.fullName()
 
-            it.respond(
-                if (watchService.remove(user))
-                    createSuccessEmbed("Successfully removed $name from the watchlist")
-                else
-                    createFailureEmbed("Failed to remove $name from the watchlist")
-            )
+            val response = if (watchService.remove(user))
+                createSuccessEmbed("Successfully removed $name from the watchlist")
+            else
+                createFailureEmbed("Failed to remove $name from the watchlist")
+
+            it.respond(response)
         }
     }
 
@@ -61,12 +61,12 @@ fun listenCommands(watchService: WatchService) = commands {
             val word = it.args.first
             val display = "\"$word\""
 
-            it.respond(
-                if (watchService.remove(word))
-                    createSuccessEmbed("Successfully removed $display from the watchlist")
-                else
-                    createFailureEmbed("Failed to remove $display from the watchlist")
-            )
+            val response = if (watchService.remove(word))
+                createSuccessEmbed("Successfully removed $display from the watchlist")
+            else
+                createFailureEmbed("Failed to remove $display from the watchlist")
+
+            it.respond(response)
         }
     }
 
