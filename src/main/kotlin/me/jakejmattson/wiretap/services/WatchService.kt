@@ -1,7 +1,7 @@
-package io.github.jakejmattson.wiretap.services
+package me.jakejmattson.wiretap.services
 
 import com.google.gson.*
-import io.github.jakejmattson.wiretap.extensions.*
+import me.jakejmattson.wiretap.extensions.*
 import me.aberrantfox.kjdautils.api.annotation.Service
 import me.aberrantfox.kjdautils.extensions.jda.fullName
 import net.dv8tion.jda.api.entities.*

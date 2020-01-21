@@ -1,6 +1,6 @@
-package io.github.jakejmattson.wiretap.listeners
+package me.jakejmattson.wiretap.listeners
 
-import io.github.jakejmattson.wiretap.services.Configuration
+import me.jakejmattson.wiretap.services.Configuration
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.internal.command.*
 

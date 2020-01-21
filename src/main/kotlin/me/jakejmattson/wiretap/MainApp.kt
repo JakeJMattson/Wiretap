@@ -1,4 +1,4 @@
-package io.github.jakejmattson.wiretap
+package me.jakejmattson.wiretap
 
 import me.aberrantfox.kjdautils.api.startBot
 

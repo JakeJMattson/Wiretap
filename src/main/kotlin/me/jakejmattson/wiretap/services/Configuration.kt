@@ -1,4 +1,4 @@
-package io.github.jakejmattson.wiretap.services
+package me.jakejmattson.wiretap.services
 
 import me.aberrantfox.kjdautils.api.annotation.Data
 

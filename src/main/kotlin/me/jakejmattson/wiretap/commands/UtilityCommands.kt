@@ -1,4 +1,4 @@
-package io.github.jakejmattson.wiretap.commands
+package me.jakejmattson.wiretap.commands
 
 import me.aberrantfox.kjdautils.api.dsl.command.*
 import me.aberrantfox.kjdautils.extensions.stdlib.toMinimalTimeString

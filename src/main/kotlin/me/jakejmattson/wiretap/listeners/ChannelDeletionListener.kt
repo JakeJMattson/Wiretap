@@ -1,7 +1,7 @@
-package io.github.jakejmattson.wiretap.listeners
+package me.jakejmattson.wiretap.listeners
 
 import com.google.common.eventbus.Subscribe
-import io.github.jakejmattson.wiretap.services.WatchService
+import me.jakejmattson.wiretap.services.WatchService
 import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent
 
 class ChannelDeletionListener(private val watchService: WatchService) {

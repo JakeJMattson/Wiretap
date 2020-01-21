@@ -1,4 +1,4 @@
-package io.github.jakejmattson.wiretap.extensions
+package me.jakejmattson.wiretap.extensions
 
 import me.aberrantfox.kjdautils.api.annotation.Service
 import me.aberrantfox.kjdautils.discord.Discord
