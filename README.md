@@ -1,9 +1,9 @@
 <p align="center">
   <a href="https://kotlinlang.org/">
-    <img src="https://img.shields.io/badge/Kotlin-1.3.60-blue.svg" alt="Kotlin 1.3.60">
+    <img src="https://img.shields.io/badge/Kotlin-1.3.61-blue.svg" alt="Kotlin 1.3.61">
   </a>
   <a href="https://gitlab.com/Aberrantfox/KUtils">
-    <img src="https://img.shields.io/badge/KUtils-0.13.0-blue.svg" alt="KUtils 0.13.0">
+    <img src="https://img.shields.io/badge/KUtils-0.13.1-blue.svg" alt="KUtils 0.13.1">
   </a>
   <a href="https://GitHub.com/JakeJMattson/Wiretap/releases/">
     <img src="https://img.shields.io/github/release/JakeJMattson/Wiretap.svg" alt="Release">
