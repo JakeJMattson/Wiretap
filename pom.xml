@@ -78,7 +78,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>make-assembly</id>
@@ -89,7 +89,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>io.github.jakejmattson.wiretap.MainAppKt</mainClass>
+                                    <mainClass>me.jakejmattson.wiretap.MainAppKt</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
