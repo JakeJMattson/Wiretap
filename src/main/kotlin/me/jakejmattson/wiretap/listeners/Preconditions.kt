@@ -1,5 +1,6 @@
 package me.jakejmattson.wiretap.listeners
 
+import me.aberrantfox.kjdautils.api.annotation.Precondition
 import me.jakejmattson.wiretap.services.Configuration
 import me.aberrantfox.kjdautils.api.dsl.*
 import me.aberrantfox.kjdautils.internal.command.*

@@ -1,5 +1,6 @@
 package me.jakejmattson.wiretap.commands
 
+import me.aberrantfox.kjdautils.api.annotation.CommandSet
 import me.jakejmattson.wiretap.services.WatchService
 import me.aberrantfox.kjdautils.api.dsl.command.*
 import me.aberrantfox.kjdautils.api.dsl.embed
