@@ -3,6 +3,7 @@ version = "1.0.0"
 
 plugins {
     kotlin("jvm") version "1.4.10"
+    kotlin("plugin.serialization") version "1.4.10"
 }
 
 repositories {
@@ -11,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation("me.jakejmattson:DiscordKt:0.19.1")
+    implementation("me.jakejmattson:DiscordKt:0.21.3")
 }
 
 tasks.compileKotlin {

@@ -1,41 +1,46 @@
 package me.jakejmattson.wiretap.listeners
 
-import com.google.common.eventbus.Subscribe
-import me.jakejmattson.discordkt.api.dsl.embed.*
+import com.gitlab.kordlib.core.entity.channel.TextChannel
+import com.gitlab.kordlib.core.event.message.MessageCreateEvent
+import com.gitlab.kordlib.rest.builder.message.EmbedBuilder
+import me.jakejmattson.discordkt.api.dsl.listeners
+import me.jakejmattson.discordkt.api.extensions.*
 import me.jakejmattson.wiretap.services.WatchService
-import net.dv8tion.jda.api.entities.TextChannel
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import java.awt.Color
 
-class MessageListener(private val watchService: WatchService) {
-    @Subscribe
-    fun onGuildMessageReceived(event: GuildMessageReceivedEvent) {
-        if (event.author.isBot) return
+fun messageListener(watchService: WatchService) = listeners {
+    on<MessageCreateEvent> {
+        if (getGuild() == null)
+            return@on
 
-        val user = watchService.getWatched(event.author)
-        val hasWord = watchService.hasWatchedWord(event.message.contentRaw)
-        val channel = event.message.channel as TextChannel
-        val content = "${channel.asMention}\n ${event.message.contentRaw}"
+        val author = message.author!!
+
+        if (author.isBot == true) return@on
+
+        val user = watchService.getWatched(author)
+        val hasWord = watchService.hasWatchedWord(message.content)
+        val channel = message.channel as TextChannel
+        val content = "${channel.mention}\n ${message.content}"
 
         if (user != null)
-            watchService.logUser(event.author, embed {
-                addField("New message in ${channel.name} from watched user.", content, true)
+            watchService.logUser(author) {
+                addInlineField("New message in ${channel.name} from watched user.", content)
 
                 if (hasWord)
-                    createDoubleAlert(this, "This message also contains a watched word.")
-            })
+                    createDoubleAlert("This message also contains a watched word.")
+            }
 
         if (hasWord)
-            watchService.logWord(embed {
-                addField("New message in ${channel.name} containing watched word.", content, true)
+            watchService.logWord {
+                addInlineField("New message in ${channel.name} containing watched word.", content)
 
                 if (user != null)
-                    createDoubleAlert(this, "The author of this message is also watched (<#${user.channelId}>).")
-            })
+                    createDoubleAlert("The author of this message is also watched (<#${user.channelId}>).")
+            }
     }
 }
 
-fun createDoubleAlert(embed: EmbedDSL, message: String) = embed.apply {
-    addField("Double alert warning!", message, false)
+fun EmbedBuilder.createDoubleAlert(message: String) = this.apply {
+    addField("Double alert warning!", message)
     color = Color.red
 }

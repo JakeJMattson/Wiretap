@@ -1,30 +1,23 @@
 package me.jakejmattson.wiretap.commands
 
-import me.jakejmattson.discordkt.api.annotations.CommandSet
-import me.jakejmattson.discordkt.api.dsl.command.commands
-import me.jakejmattson.discordkt.api.extensions.stdlib.toTimeString
-import java.awt.Color
-import java.util.Date
+import me.jakejmattson.discordkt.api.dsl.commands
+import me.jakejmattson.discordkt.api.extensions.*
+import java.util.*
+import kotlin.math.roundToInt
+import kotlin.time.ExperimentalTime
 
 private val startTime = Date()
 
-@CommandSet("Utility")
-fun utilityCommands() = commands {
-    command("Status", "Ping", "Uptime") {
+@ExperimentalTime
+fun utilityCommands() = commands("Utility") {
+    guildCommand("Status", "Ping") {
         description = "Display network status and total uptime."
-        execute { event ->
-            val jda = event.discord.jda
+        execute {
+            respond {
+                val seconds = (Date().time - startTime.time) / 1000
 
-            jda.restPing.queue { restPing ->
-                event.respond {
-                    color = Color(0x00bfff)
-
-                    val seconds = (Date().time - startTime.time) / 1000
-
-                    addField("Rest ping", "${restPing}ms")
-                    addField("Gateway ping", "${jda.gatewayPing}ms")
-                    addField("Total Uptime", seconds.toTimeString())
-                }
+                addField("Gateway Ping", discord.api.gateway.averagePing.inMilliseconds.roundToInt().toString())
+                addField("Total Uptime", seconds.toTimeString())
             }
         }
     }

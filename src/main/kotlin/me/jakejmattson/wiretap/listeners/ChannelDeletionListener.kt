@@ -1,10 +1,11 @@
 package me.jakejmattson.wiretap.listeners
 
-import com.google.common.eventbus.Subscribe
+import com.gitlab.kordlib.core.event.channel.TextChannelDeleteEvent
+import me.jakejmattson.discordkt.api.dsl.listeners
 import me.jakejmattson.wiretap.services.WatchService
-import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent
 
-class ChannelDeletionListener(private val watchService: WatchService) {
-    @Subscribe
-    fun onTextChannelDelete(event: TextChannelDeleteEvent) = watchService.remove(event.channel)
+fun channelDeletion(watchService: WatchService) = listeners {
+    on<TextChannelDeleteEvent> {
+        watchService.remove(channel)
+    }
 }
