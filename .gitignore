@@ -1,5 +1,8 @@
-Wiretap.iml
+*.iml
 .idea/
-target/
+
+.gradle
+build
+
 config/
 backup/
