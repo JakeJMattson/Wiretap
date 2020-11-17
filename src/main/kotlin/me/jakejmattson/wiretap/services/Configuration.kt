@@ -1,9 +1,8 @@
 package me.jakejmattson.wiretap.services
 
-import me.aberrantfox.kjdautils.api.annotation.Data
+import me.jakejmattson.discordkt.api.dsl.data.Data
 
-@Data("config/config.json")
 data class Configuration(val watchCategory: String = "insert-id-here",
                          val wordLogChannel: String = "insert-id-here",
                          val requiredRoleName: String = "Staff",
-                         val recoverWatched: Boolean = true)
+                         val recoverWatched: Boolean = true) : Data("config/config.json")

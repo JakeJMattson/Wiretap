@@ -19,31 +19,21 @@
 
         <!-- Version Numbers -->
         <kotlin.version>1.3.70</kotlin.version>
-        <kutils.version>0.14.0</kutils.version>
+        <discordkt.version>0.21.3</discordkt.version>
     </properties>
 
     <dependencies>
-        <!-- Kotlin -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
-
-        <!-- KUtils -->
         <dependency>
-            <groupId>com.gitlab.aberrantfox</groupId>
-            <artifactId>KUtils</artifactId>
-            <version>${kutils.version}</version>
+            <groupId>me.jakejmattson</groupId>
+            <artifactId>DiscordKt</artifactId>
+            <version>0.19.1</version>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
 
     <build>
         <resources>

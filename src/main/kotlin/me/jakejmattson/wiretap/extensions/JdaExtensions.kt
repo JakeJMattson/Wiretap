@@ -1,7 +1,7 @@
 package me.jakejmattson.wiretap.extensions
 
-import me.aberrantfox.kjdautils.api.annotation.Service
-import me.aberrantfox.kjdautils.discord.Discord
+import me.jakejmattson.discordkt.api.Discord
+import me.jakejmattson.discordkt.api.annotations.Service
 import net.dv8tion.jda.api.JDA
 
 private lateinit var jda: JDA

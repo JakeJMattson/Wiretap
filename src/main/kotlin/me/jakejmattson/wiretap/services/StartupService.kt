@@ -1,10 +1,9 @@
 package me.jakejmattson.wiretap.services
 
 import com.google.gson.Gson
-import me.aberrantfox.kjdautils.api.annotation.Service
-import me.aberrantfox.kjdautils.api.dsl.embed
-import me.aberrantfox.kjdautils.discord.Discord
-import me.aberrantfox.kjdautils.extensions.jda.fullName
+import me.jakejmattson.discordkt.api.Discord
+import me.jakejmattson.discordkt.api.annotations.Service
+import me.jakejmattson.discordkt.api.extensions.jda.fullName
 import java.awt.Color
 
 @Service
@@ -16,21 +15,19 @@ class StartupService(configuration: Configuration, discord: Discord) {
 
     init {
         with(discord.configuration) {
-            prefix = "?"
+            prefix { "?" }
 
-            mentionEmbed = {
-                embed {
-                    val self = it.guild.jda.selfUser
+            mentionEmbed {
+                val self = it.guild!!.jda.selfUser
 
-                    color = Color(0x00bfff)
-                    thumbnail = self.effectiveAvatarUrl
-                    addField(self.fullName(), "The friendly eavesdropping bot.")
-                    addInlineField("Required role", configuration.requiredRoleName)
-                    addInlineField("Prefix", prefix)
-                    addInlineField("Author", "[${project.author}](https://discordapp.com/users/254786431656919051/)")
-                    addInlineField("Version", project.version)
-                    addInlineField("Source", project.repository)
-                }
+                color = Color(0x00bfff)
+                thumbnail = self.effectiveAvatarUrl
+                addField(self.fullName(), "The friendly eavesdropping bot.")
+                addInlineField("Required role", configuration.requiredRoleName)
+                addInlineField("Prefix", "?")
+                addInlineField("Author", "[${project.author}](https://discordapp.com/users/254786431656919051/)")
+                addInlineField("Version", project.version)
+                addInlineField("Source", project.repository)
             }
         }
     }

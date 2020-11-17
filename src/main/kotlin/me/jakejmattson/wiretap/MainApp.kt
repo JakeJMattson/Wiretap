@@ -1,8 +1,11 @@
 package me.jakejmattson.wiretap
 
-import me.aberrantfox.kjdautils.api.startBot
+import me.jakejmattson.discordkt.api.dsl.bot
 
 fun main(args: Array<String>) {
     val token = args.first()
-    startBot(token) { }
+
+    bot(token) {
+        
+    }
 }

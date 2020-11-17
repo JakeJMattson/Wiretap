@@ -1,16 +1,15 @@
 package me.jakejmattson.wiretap.commands
 
-import me.aberrantfox.kjdautils.api.annotation.CommandSet
+import me.jakejmattson.discordkt.api.annotations.CommandSet
+import me.jakejmattson.discordkt.api.arguments.*
+import me.jakejmattson.discordkt.api.dsl.command.commands
+import me.jakejmattson.discordkt.api.dsl.embed.embed
+import me.jakejmattson.discordkt.api.extensions.jda.fullName
 import me.jakejmattson.wiretap.services.WatchService
-import me.aberrantfox.kjdautils.api.dsl.command.*
-import me.aberrantfox.kjdautils.api.dsl.embed
-import me.aberrantfox.kjdautils.extensions.jda.fullName
-import me.aberrantfox.kjdautils.internal.arguments.*
 import java.awt.Color
 
 @CommandSet("Listen")
 fun listenCommands(watchService: WatchService) = commands {
-
     command("ListenTo") {
         description = "Listen to a target user."
         execute(UserArg) {
@@ -29,7 +28,7 @@ fun listenCommands(watchService: WatchService) = commands {
 
     command("ListenFor") {
         description = "Listen for a target word."
-        execute(SentenceArg) {
+        execute(EveryArg) {
             val word = it.args.first
 
             val response = if (watchService.watchWord(word))
@@ -58,7 +57,7 @@ fun listenCommands(watchService: WatchService) = commands {
 
     command("IgnoreWord") {
         description = "Ignore previously listened word."
-        execute(SentenceArg) {
+        execute(EveryArg) {
             val word = it.args.first
             val display = "\"$word\""
 

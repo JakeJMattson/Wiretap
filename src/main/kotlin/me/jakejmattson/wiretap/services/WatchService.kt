@@ -2,8 +2,8 @@ package me.jakejmattson.wiretap.services
 
 import com.google.gson.*
 import me.jakejmattson.wiretap.extensions.*
-import me.aberrantfox.kjdautils.api.annotation.Service
-import me.aberrantfox.kjdautils.extensions.jda.fullName
+import me.jakejmattson.discordkt.api.annotations.Service
+import me.jakejmattson.discordkt.api.extensions.jda.fullName
 import net.dv8tion.jda.api.entities.*
 import java.io.File
 

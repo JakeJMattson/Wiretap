@@ -1,8 +1,8 @@
 package me.jakejmattson.wiretap.listeners
 
 import com.google.common.eventbus.Subscribe
+import me.jakejmattson.discordkt.api.dsl.embed.*
 import me.jakejmattson.wiretap.services.WatchService
-import me.aberrantfox.kjdautils.api.dsl.*
 import net.dv8tion.jda.api.entities.TextChannel
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import java.awt.Color
@@ -35,7 +35,7 @@ class MessageListener(private val watchService: WatchService) {
     }
 }
 
-fun createDoubleAlert(embed: EmbedDSLHandle, message: String) = embed.apply {
+fun createDoubleAlert(embed: EmbedDSL, message: String) = embed.apply {
     addField("Double alert warning!", message, false)
     color = Color.red
 }
